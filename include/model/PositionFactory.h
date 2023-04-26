@@ -1,0 +1,22 @@
+#pragma once
+
+#ifndef CHESS_PIECEFACTORY_H
+#define CHESS_PIECEFACTORY_H
+
+
+#include "BoardSpot.h"
+
+class PositionFactory {
+public:
+    static std::shared_ptr<BoardSpot> createBlankPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createKingPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createPawnPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createBishopPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createKnightPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createRookPosition(int row, int col);
+    static std::shared_ptr<BoardSpot> createQueenPosition(int row, int col);
+
+};
+
+
+#endif //CHESS_PIECEFACTORY_H
