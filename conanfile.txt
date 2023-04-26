@@ -1,6 +1,7 @@
 [requires]
 glfw/3.3.8
+gtest/1.11.0
+
 
 [generators]
-CMakeDeps
-CMakeToolchain
+cmake
