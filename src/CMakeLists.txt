@@ -1,13 +1,21 @@
-cmake_minimum_required(VERSION 3.22.1)
+add_lib(src
+        SOURCES
+        model/pieces/Piece.cpp
+        model/pieces/King.cpp
+        model/pieces/Knight.cpp
+        model/pieces/Bishop.cpp
+        model/pieces/Rook.cpp
+        model/pieces/Queen.cpp
+        model/pieces/Pawn.cpp
+        model/Board.cpp
+        model/BoardSpot.cpp
+        model/Move.cpp
+        model/PositionFactory.cpp
 
-project(src)
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/../lib
-)
+        )
 
-add_executable(3DRenderer ../main.cpp)
-find_package(OpenGL REQUIRED)
-include_directories(${glfw3_INCLUDE_DIRS})
-target_link_libraries(3DRenderer Opengl:GL ${CONAN_LIBS}  ${glfw3_LIBRARIES})
+add_app(${PROJECT_NAME}
+        run/main.cpp)
+
+
 

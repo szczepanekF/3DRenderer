@@ -1,9 +1,11 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
-#include "Board.h"
+
+
 
 int main(void) {
+
     GLFWwindow *mainWindow;
     if (!glfwInit()) return -1;
 
