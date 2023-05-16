@@ -10,7 +10,7 @@ class Knight : public Piece{
 
 
 public:
-    Knight();
+    Knight(Colour initColour = WHITE);
     ~Knight() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

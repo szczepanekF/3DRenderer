@@ -3,7 +3,9 @@
 #include "model/Board.h"
 
 
-Bishop::Bishop() {}
+Bishop::Bishop(Colour initColour) : Piece(initColour) {
+
+}
 
 Bishop::~Bishop() {
 
@@ -17,5 +19,6 @@ bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
 
     return x == y;
 }
+
 
 

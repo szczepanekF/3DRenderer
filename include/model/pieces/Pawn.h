@@ -9,7 +9,7 @@
 
 class Pawn : public Piece{
 public:
-    Pawn();
+    Pawn(Colour initColour = WHITE);
     ~Pawn() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

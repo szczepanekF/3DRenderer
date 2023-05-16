@@ -5,7 +5,9 @@
 #include "model/pieces/Pawn.h"
 #include "model/Board.h"
 
-Pawn::Pawn() {}
+Pawn::Pawn(Colour initColour) : Piece(initColour) {
+
+}
 
 Pawn::~Pawn() {
 

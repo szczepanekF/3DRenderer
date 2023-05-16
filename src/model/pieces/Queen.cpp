@@ -5,7 +5,10 @@
 #include "model/pieces/Queen.h"
 #include "model/Board.h"
 
-Queen::Queen() {}
+Queen::Queen(Colour initColour) : Piece(initColour) {
+
+}
+
 
 Queen::~Queen() {
 
@@ -19,3 +22,4 @@ bool Queen::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpo
 
     return x == y || y == 0 || x == 0;
 }
+

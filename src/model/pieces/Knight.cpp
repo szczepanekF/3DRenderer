@@ -5,7 +5,9 @@
 #include "model/pieces/Knight.h"
 #include "model/Board.h"
 
-Knight::Knight() {}
+Knight::Knight(Colour initColour) : Piece(initColour) {
+
+}
 
 Knight::~Knight() {
 
@@ -19,3 +21,4 @@ bool Knight::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
 
     return x * y == 2;
 }
+

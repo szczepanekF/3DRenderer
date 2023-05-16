@@ -7,11 +7,6 @@ BoardSpot::BoardSpot(int row, int column, std::unique_ptr<Piece> piece) : row(ro
 
 }
 
-void BoardSpot::setPosition(int newRow, int newColumn) {
-    this->row = newRow;
-    this->column = newColumn;
-}
-
 int BoardSpot::getRow() const {
     return row;
 }

@@ -1,11 +1,9 @@
-//
-// Created by szczepan on 26.04.23.
-//
-
 #include "model/pieces/Rook.h"
 #include "model/Board.h"
 
-Rook::Rook() {}
+Rook::Rook(Colour initColour) : Piece(initColour) {
+
+}
 
 Rook::~Rook() {
 
@@ -19,3 +17,4 @@ bool Rook::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
 
     return y == 0 || x == 0;
 }
+

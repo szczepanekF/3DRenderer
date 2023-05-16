@@ -6,7 +6,7 @@
 #include "model/BoardSpot.h"
 #include "model/Board.h"
 
-King::King() {
+King::King(Colour initColour) : Piece(initColour) {
     castlingAvailable = true;
 }
 
@@ -22,6 +22,7 @@ bool King::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
 
     return x<=1 && y<=1;
 }
+
 
 
 

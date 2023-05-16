@@ -9,7 +9,7 @@
 
 class Queen : public Piece{
 public:
-    Queen();
+    Queen(Colour initColour = WHITE);
     ~Queen() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

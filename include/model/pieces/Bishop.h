@@ -8,7 +8,7 @@
 
 class Bishop : public Piece {
 public:
-    Bishop();
+    Bishop(Colour initColour = WHITE);
     ~Bishop() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

@@ -3,3 +3,7 @@
 //
 
 #include "model/pieces/Piece.h"
+
+Piece::Piece(Colour initColour):colour(initColour) {
+
+}

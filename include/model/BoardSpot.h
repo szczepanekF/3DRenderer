@@ -15,7 +15,6 @@ private:
 public:
     BoardSpot(int row, int column, std::unique_ptr<Piece> piece);
 
-    void setPosition(int newRow, int newColumn);
     int getRow() const;
     int getColumn() const;
 

@@ -13,7 +13,7 @@ private:
     bool castlingAvailable;
 
 public:
-    King();
+    King(Colour initColour = WHITE);
     ~King() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

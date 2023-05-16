@@ -9,7 +9,7 @@
 
 class Rook : public Piece{
 public:
-    Rook();
+    Rook(Colour initColour = WHITE);
     ~Rook() override;
 
     bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;

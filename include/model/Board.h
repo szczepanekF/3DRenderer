@@ -15,13 +15,12 @@ public:
     void initBoard();
 
 
-    std::shared_ptr<BoardSpot> getSpot(long unsigned  row, long unsigned  col) const;
+    std::shared_ptr<BoardSpot> getSpot(unsigned int row, unsigned int col) const;
 
 private:
     void initializeOccupiedSpots();
-    void initializeOneSideSpots(bool whiteSide);
-    //std::shared_ptr<std::shared_ptr<std::shared_ptr<BoardSpot>[]>[]> board;
-    std::array<std::array<std::shared_ptr<BoardSpot>, BOARD_LENGTH>,BOARD_LENGTH> board;
+    void initializeOneSideSpots(Colour side);
+    std::shared_ptr<BoardSpot> board[BOARD_LENGTH][BOARD_LENGTH];
 };
 
 
