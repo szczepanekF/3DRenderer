@@ -1,12 +1,12 @@
 #pragma once
 
-
-#ifndef CHESS_BOARD_H
-#define CHESS_BOARD_H
-
 #include "BoardSpot.h"
+#include "model/pieces/King.h"
+#include <vector>
+
 
 #define BOARD_LENGTH 8
+
 
 class Board {
 
@@ -15,13 +15,17 @@ public:
     void initBoard();
 
 
-    std::shared_ptr<BoardSpot> getSpot(unsigned int row, unsigned int col) const;
-
+    std::shared_ptr<BoardSpot> getSpot(int row, int col) const;
+    std::vector<std::shared_ptr<BoardSpot>> getPiecesOfColour(Colour colour) const;
+    std::shared_ptr<King> getKingOfColour(Colour colour) const;
 private:
     void initializeOccupiedSpots();
+    void initializeEmptySpots();
     void initializeOneSideSpots(Colour side);
+    void fillWithSameColour(std::vector<std::shared_ptr<BoardSpot>> &vec, Colour colour) const;
+
+
     std::shared_ptr<BoardSpot> board[BOARD_LENGTH][BOARD_LENGTH];
 };
 
 
-#endif //CHESS_BOARD_H

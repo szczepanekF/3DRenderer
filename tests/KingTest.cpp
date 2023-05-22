@@ -5,7 +5,7 @@
 
 TEST(KingTest, ConstructionTest) {
     //given
-    std::unique_ptr<Piece> king = std::make_unique<King>();
+//    std::shared_ptr<Piece> king = std::shared_ptr<King>();
     BoardSpot position(0, 1, nullptr);
 
     //when

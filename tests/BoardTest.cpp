@@ -18,7 +18,7 @@ TEST(BoardTest, InitTest) {
     //given
     Board b;
     //when
-    b.initBoard();
+
     //then
 
     for (int i = 0; i < 8; i++) {
@@ -26,4 +26,16 @@ TEST(BoardTest, InitTest) {
             ASSERT_NE(b.getSpot(i,j),nullptr);
         }
     }
+}
+
+TEST(BoardTest, GetPiecesOfColourTest) {
+    //given
+    Board b;
+    //when
+
+    //then
+
+    ASSERT_EQ(b.getPiecesOfColour(BLACK).size(),16);
+    ASSERT_EQ(b.getPiecesOfColour(WHITE).size(),16);
+
 }

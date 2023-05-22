@@ -4,6 +4,12 @@
 
 #include "model/pieces/Piece.h"
 
-Piece::Piece(Colour initColour):colour(initColour) {
+Piece::Piece(Colour initColour): colour(initColour) {
 
 }
+
+Colour Piece::getColour() const {
+    return colour;
+}
+
+

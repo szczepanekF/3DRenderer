@@ -11,6 +11,7 @@ add_lib(src
         model/BoardSpot.cpp
         model/Move.cpp
         model/PositionFactory.cpp
+        model/Game.cpp
 
         )
 

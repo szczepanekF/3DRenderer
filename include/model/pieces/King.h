@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CHESS_KING_H
-#define CHESS_KING_H
-
 #include "Piece.h"
 
 
@@ -16,8 +13,9 @@ public:
     King(Colour initColour = WHITE);
     ~King() override;
 
-    bool canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) override;
+    bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
+//    bool canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end);
+
 };
 
 
-#endif //CHESS_KING_H

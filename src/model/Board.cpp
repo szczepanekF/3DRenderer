@@ -1,9 +1,9 @@
-//
-// Created by szczepan on 25.04.23.
-//
+
 
 #include "model/Board.h"
 #include "model/PositionFactory.h"
+#include <vector>
+#include <iostream>
 
 Board::Board() {
    initBoard();
@@ -12,17 +12,8 @@ Board::Board() {
 void Board::initBoard() {
 
     initializeOccupiedSpots();
-    for (int i = 2; i < 7; i++) {
-        for (int j = 0; j < 8; j++)
-            board[i][j] = PositionFactory::createBlankPosition(i,j);
-    }
+    initializeEmptySpots();
 
-}
-
-
-std::shared_ptr<BoardSpot> Board::getSpot(unsigned int row, unsigned int col) const{
-    if (row > 7 || col > 7) return nullptr;
-    return board[row][col];
 }
 
 void Board::initializeOccupiedSpots() {
@@ -33,7 +24,7 @@ void Board::initializeOccupiedSpots() {
 void Board::initializeOneSideSpots(Colour side) {
     int x;
     if (side == BLACK) {
-        x = 7;
+        x = BOARD_LENGTH - 1;
         PositionFactory::setBlackSide();
     } else {
         x = 0;
@@ -51,9 +42,57 @@ void Board::initializeOneSideSpots(Colour side) {
     if (x == 0) x++;
     else x--;
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < BOARD_LENGTH; i++) {
         board[x][i] = PositionFactory::createPawnPosition(x, i);
     }
 
+
+}
+
+void Board::initializeEmptySpots() {
+    int occupiedRows = 2;
+
+    for (int i = occupiedRows; i < BOARD_LENGTH - occupiedRows; i++) {
+        for (int j = 0; j < BOARD_LENGTH; j++)
+            board[i][j] = PositionFactory::createBlankPosition(i,j);
+    }
+}
+
+std::shared_ptr<BoardSpot> Board::getSpot(int row, int col) const{
+    if (row > 7 || col > 7 || row < 0 || col < 0) return nullptr;
+    return board[row][col];
+}
+
+std::vector<std::shared_ptr<BoardSpot>> Board::getPiecesOfColour(Colour colour) const {
+    std::vector<std::shared_ptr<BoardSpot>> spots;
+    unsigned long maxPiecesAmount = BOARD_LENGTH * 2;
+    spots.reserve(maxPiecesAmount);
+    fillWithSameColour(spots,colour);
+    spots.shrink_to_fit();
+    return spots;
+}
+
+void Board::fillWithSameColour(std::vector<std::shared_ptr<BoardSpot>> &vec, Colour colour) const {
+    for (const auto & i : board) {
+        for (const auto & j : i) {
+            Colour spotColour = j->getPieceColour();
+            if (spotColour == colour) {
+                vec.emplace_back(j);
+            }
+        }
+    }
+}
+
+std::shared_ptr<King> Board::getKingOfColour(Colour colour) const {
+    std::vector<std::shared_ptr<BoardSpot>> spots = getPiecesOfColour(colour);
+
+    for (const auto& spot: spots) {
+        std::shared_ptr<King> king = std::dynamic_pointer_cast<King>(spot->getPiece());
+        if (king != nullptr) {
+            return king;
+        }
+    }
+
+    throw std::logic_error("King of given colour is not on a board - Weird!");
 
 }

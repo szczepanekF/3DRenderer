@@ -1,22 +1,26 @@
 #pragma once
 
-#ifndef CHESS_BOARDSPOT_H
-#define CHESS_BOARDSPOT_H
 
 #include <memory>
-#include "model/pieces/Piece.h"
+#include "pieces/Piece.h"
 
 
 class BoardSpot {
 private:
     int row;
     int column;
-    std::unique_ptr<Piece> piece;
+    std::shared_ptr<Piece> piece;
 public:
-    BoardSpot(int row, int column, std::unique_ptr<Piece> piece);
+    BoardSpot(int row, int column, std::shared_ptr<Piece> piece);
 
+    std::shared_ptr<Piece> replacePiece(std::shared_ptr<Piece> piece);
+    bool isOccupied() const;
+    Colour getPieceColour() const;
+    std::shared_ptr<Piece> getPiece() const;
     int getRow() const;
     int getColumn() const;
+
+
 
 
 
@@ -24,4 +28,3 @@ public:
 };
 
 
-#endif //CHESS_BOARDSPOT_H

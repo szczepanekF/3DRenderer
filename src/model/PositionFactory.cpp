@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "model/PositionFactory.h"
 #include "model/pieces/King.h"
 #include "model/pieces/Pawn.h"

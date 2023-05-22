@@ -13,8 +13,10 @@ Knight::~Knight() {
 
 }
 
-bool Knight::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) {
-    board.getSpot(0,0);
+bool Knight::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
+
+    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() != getColour()) return false;
+
     int x = std::abs(start.getRow() - end.getRow());
     int y = std::abs(start.getColumn() - end.getColumn());
     if (x == 0 && y == 0) return false;
