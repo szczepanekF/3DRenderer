@@ -9,6 +9,8 @@ add_test(ChessTest
         BoardTest.cpp
         piecesTests/KingTest.cpp
         piecesTests/KnightTest.cpp
+        piecesTests/QueenTest.cpp
+        piecesTests/BishopTest.cpp
         piecesTests/RookTest.cpp
         piecesTests/PawnTest.cpp
         DEPENDS

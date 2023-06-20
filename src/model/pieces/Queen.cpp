@@ -2,6 +2,7 @@
 // Created by szczepan on 26.04.23.
 //
 
+#include <iostream>
 #include "model/pieces/Queen.h"
 #include "model/Board.h"
 
@@ -24,20 +25,18 @@ bool Queen::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpo
     int y = std::abs(diffY);
 
     if ((y != 0 && x != 0) && x != y) return false;
-
-    bool forwardX = true;
-    bool forwardY = true;
-    if (diffX < 0) forwardX = false;
-    if (diffY < 0) forwardY = false;
+    int steps = x;
+    if (steps == 0) {
+        steps = y;
+    }
     std::shared_ptr<BoardSpot> checkedSpot;
-    for (int i = 1; i < x; i++) {
-        if (forwardX) startingRow += 1;
-        else if (diffX == 0) startingRow = 0;
-        else startingRow -= 1;
+    for (int i = 1; i < steps; i++) {
+        if (diffX > 0) startingRow += 1;
+        else if (diffX != 0) startingRow -= 1;
 
-        if (forwardY) startingCol += 1;
-        else if (diffY == 0) startingCol = 0;
-        else startingCol -= 0;
+
+        if (diffY > 0) startingCol += 1;
+        else if (diffY != 0) startingCol -= 1;
 
         checkedSpot = board.getSpot(startingRow,startingCol);
         if (checkedSpot->isOccupied()) return false;

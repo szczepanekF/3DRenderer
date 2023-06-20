@@ -1,8 +1,3 @@
-//
-// Created by szczepan on 26.04.23.
-//
-
-#include <iostream>
 #include "model/pieces/Pawn.h"
 #include "model/Board.h"
 
