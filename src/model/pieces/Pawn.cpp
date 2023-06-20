@@ -15,7 +15,7 @@ Pawn::~Pawn() {
 }
 
 bool Pawn::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const{
-    if (end.getPieceColour() != NO_COLOUR && end.getPieceColour() != getColour()) return false;
+    if (end.getPieceColour() == getColour()) return false;
     int startingRow = start.getRow();
     int diffX = end.getRow() - startingRow;
     int moveDir = 1;

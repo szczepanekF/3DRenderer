@@ -15,7 +15,8 @@ King::~King() {
 }
 
 bool King::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() != getColour()) return false;
+    Colour colour = board.getSpot(end.getRow(),end.getColumn())->getPieceColour();
+    if (colour == getColour()) return false;
 
     int x = std::abs(start.getRow() - end.getRow());
     int y = std::abs(start.getColumn() - end.getColumn());

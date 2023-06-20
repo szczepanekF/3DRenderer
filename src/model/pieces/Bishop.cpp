@@ -12,7 +12,7 @@ Bishop::~Bishop() {
 }
 
 bool Bishop::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() != getColour()) return false;
+    if (end.getPieceColour() == getColour()) return false;
 
 
     int startingRow = start.getRow();

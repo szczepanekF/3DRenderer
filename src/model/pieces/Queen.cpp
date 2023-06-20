@@ -15,7 +15,7 @@ Queen::~Queen() {
 }
 
 bool Queen::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() != getColour()) return false;
+    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() == getColour()) return false;
     int startingRow = start.getRow();
     int startingCol = start.getColumn();
     int diffX = end.getRow() - startingRow;

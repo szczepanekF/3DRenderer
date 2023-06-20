@@ -8,6 +8,8 @@ add_test(ChessTest
         BoardSpotTest.cpp
         BoardTest.cpp
         piecesTests/KingTest.cpp
+        piecesTests/KnightTest.cpp
+        piecesTests/RookTest.cpp
         piecesTests/PawnTest.cpp
         DEPENDS
         src

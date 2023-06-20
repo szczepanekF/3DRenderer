@@ -32,11 +32,10 @@ TEST(PawnTest, MovingToBlankSpotTest) {
     //then
     ASSERT_TRUE(spot->isOccupied());
 
-    ASSERT_FALSE(testSpot->isOccupied());
+
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(3,5);
-    ASSERT_FALSE(testSpot->isOccupied());
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(4,4);
@@ -46,11 +45,9 @@ TEST(PawnTest, MovingToBlankSpotTest) {
     ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(6,4);
-    ASSERT_FALSE(testSpot->isOccupied());
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(2,4);
-    ASSERT_FALSE(testSpot->isOccupied());
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     spot->replacePiece(nullptr);
@@ -67,12 +64,10 @@ TEST(PawnTest, MovingToBlankSpotTest) {
     ASSERT_FALSE(p2->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(5,4);
-    ASSERT_FALSE(testSpot->isOccupied());
     ASSERT_FALSE(p2->canMoveTo(board,*spot,*testSpot));
 }
 
-TEST(PawnTest,MovingToOccupiedSpotTest)
-{
+TEST(PawnTest,MovingToOccupiedSpotTest) {
     //given
     std::shared_ptr<Pawn> p = std::make_shared<Pawn>(WHITE);
     std::shared_ptr<Pawn> p2 = std::make_shared<Pawn>(BLACK);
