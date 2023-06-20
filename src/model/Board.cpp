@@ -58,6 +58,14 @@ void Board::initializeEmptySpots() {
     }
 }
 
+void Board::clearBoard() {
+    for (int i = 0; i < BOARD_LENGTH; i++) {
+        for (int j = 0; j < BOARD_LENGTH; j++)
+            board[i][j] = PositionFactory::createBlankPosition(i,j);
+    }
+}
+
+
 std::shared_ptr<BoardSpot> Board::getSpot(int row, int col) const{
     if (row > 7 || col > 7 || row < 0 || col < 0) return nullptr;
     return board[row][col];
@@ -96,3 +104,7 @@ std::shared_ptr<King> Board::getKingOfColour(Colour colour) const {
     throw std::logic_error("King of given colour is not on a board - Weird!");
 
 }
+
+
+
+

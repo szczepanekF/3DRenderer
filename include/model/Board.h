@@ -13,11 +13,12 @@ class Board {
 public:
     Board();
     void initBoard();
-
+    void clearBoard();
 
     std::shared_ptr<BoardSpot> getSpot(int row, int col) const;
     std::vector<std::shared_ptr<BoardSpot>> getPiecesOfColour(Colour colour) const;
     std::shared_ptr<King> getKingOfColour(Colour colour) const;
+
 private:
     void initializeOccupiedSpots();
     void initializeEmptySpots();

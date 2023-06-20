@@ -6,8 +6,9 @@ include(GoogleTest)
 add_test(ChessTest
         SOURCES
         BoardSpotTest.cpp
-        KingTest.cpp
         BoardTest.cpp
+        piecesTests/KingTest.cpp
+        piecesTests/PawnTest.cpp
         DEPENDS
         src
         )

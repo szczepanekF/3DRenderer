@@ -11,7 +11,7 @@ private:
     int column;
     std::shared_ptr<Piece> piece;
 public:
-    BoardSpot(int row, int column, std::shared_ptr<Piece> piece);
+    BoardSpot(int row, int column, std::shared_ptr<Piece> piece = nullptr);
 
     std::shared_ptr<Piece> replacePiece(std::shared_ptr<Piece> piece);
     bool isOccupied() const;
