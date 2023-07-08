@@ -12,4 +12,8 @@ Colour Piece::getColour() const {
     return colour;
 }
 
+bool Piece::canTake(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    return canMoveTo(board,start,end);
+}
+
 

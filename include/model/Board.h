@@ -18,6 +18,7 @@ public:
     std::shared_ptr<BoardSpot> getSpot(int row, int col) const;
     std::vector<std::shared_ptr<BoardSpot>> getPiecesOfColour(Colour colour) const;
     std::shared_ptr<King> getKingOfColour(Colour colour) const;
+    bool isSpotAttackedBy(int x, int y, Colour colour) const;
 
 private:
     void initializeOccupiedSpots();

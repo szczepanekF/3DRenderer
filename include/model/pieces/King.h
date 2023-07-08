@@ -14,7 +14,7 @@ public:
     ~King() override;
 
     bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
-//    bool canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end);
+    bool canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const;
 
 };
 

@@ -12,10 +12,22 @@ Pawn::~Pawn() {
 bool Pawn::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const{
     if (end.getPieceColour() == getColour()) return false;
     int startingRow = start.getRow();
+    int startingCol = start.getColumn();
     int diffX = end.getRow() - startingRow;
+    int diffY = end.getColumn() - startingCol;
+
+    if (abs(diffY) > 1) {
+        return false;
+    }
+
     int moveDir = 1;
     if(getColour() == BLACK) {
         moveDir = -1;
+    }
+
+    if (diffY != 0 && diffX == moveDir) {
+        if (end.isOccupied()) return true;
+        else return false;
     }
 
 
@@ -45,4 +57,27 @@ void Pawn::move() {
 
 bool Pawn::isMoved() const {
     return hasMoved;
+}
+
+bool Pawn::canTake(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    Colour colour = board.getSpot(end.getRow(), end.getColumn())->getPieceColour();
+    if (colour == getColour()) return false;
+    int startingRow = start.getRow();
+    int startingCol = start.getColumn();
+    int diffX = end.getRow() - startingRow;
+    int diffY = end.getColumn() - startingCol;
+
+    int moveDir = 1;
+    if(getColour() == BLACK) {
+        moveDir = -1;
+    }
+
+    if (abs(diffY) != 1 || diffX != moveDir) {
+        return false;
+    }
+
+
+    if (end.isOccupied()) return true;
+    else return false;
+
 }

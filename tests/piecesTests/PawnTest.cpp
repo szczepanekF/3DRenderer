@@ -3,15 +3,39 @@
 #include "model/BoardSpot.h"
 #include "model/Board.h"
 
-TEST(PawnTest, ConstructionTest) {
+class PawnTest : public ::testing::Test {
+
+protected:
+    std::shared_ptr<Pawn> p = std::make_shared<Pawn>(WHITE);
+    std::shared_ptr<Pawn> p2 = std::make_shared<Pawn>(BLACK);
+
+    PawnTest() {
+    }
+
+    virtual ~PawnTest() {
+    }
+
+    virtual void SetUp() {
+        p = std::make_shared<Pawn>(WHITE);
+        p2 = std::make_shared<Pawn>(BLACK);
+    }
+
+    virtual void TearDown() {
+
+    }
+};
+
+
+
+
+TEST_F(PawnTest, ConstructionTest) {
     //given
-    Pawn p(WHITE);
-    Pawn p2(BLACK);
+
     //when
 
     //then
-    ASSERT_EQ(p.getColour(),WHITE);
-    ASSERT_EQ(p2.getColour(),BLACK);
+    ASSERT_EQ(p->getColour(),WHITE);
+    ASSERT_EQ(p2->getColour(),BLACK);
 }
 
 TEST(PawnTest, MovingToBlankSpotTest) {
@@ -35,7 +59,7 @@ TEST(PawnTest, MovingToBlankSpotTest) {
 
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
-    testSpot = board.getSpot(3,5);
+    testSpot = board.getSpot(4,5);
     ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(4,4);
@@ -102,4 +126,8 @@ TEST(PawnTest,MovingToOccupiedSpotTest) {
     ASSERT_FALSE(p2->canMoveTo(board,*testSpot2,*testSpot));
 
 
+    //takes Test
+    testSpot = board.getSpot(4,5);
+    testSpot->replacePiece(p2);
+    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
 }

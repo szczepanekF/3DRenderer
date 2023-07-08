@@ -106,5 +106,19 @@ std::shared_ptr<King> Board::getKingOfColour(Colour colour) const {
 }
 
 
+bool Board::isSpotAttackedBy(int x, int y, Colour colour) const {
+    std::vector<std::shared_ptr<BoardSpot>> spots = getPiecesOfColour(colour);
+    std::shared_ptr<BoardSpot> spotToCheck = board[x][y];
+    std::shared_ptr<Piece> currPiece;
+    for(auto spot: spots) {
+        currPiece = spot->getPiece();
+        if (currPiece->canTake(*this,*spot,*spotToCheck)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 

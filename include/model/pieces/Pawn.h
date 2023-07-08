@@ -11,7 +11,7 @@ public:
     ~Pawn() override;
 
     bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
-
+    bool canTake(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
     void move();
 
     bool isMoved() const;
