@@ -2,45 +2,64 @@
 #include "model/pieces/Bishop.h"
 #include "model/Board.h"
 
-TEST(BishopTest,MovingTest) {
+class BishopTest : public ::testing::Test {
+
+protected:
+    std::shared_ptr<Bishop> p;
+    std::shared_ptr<Bishop> p2;
+    Board board;
+    std::shared_ptr<BoardSpot> spot;
+    std::shared_ptr<BoardSpot> testSpot;
+
+
+    BishopTest() {
+    }
+
+    virtual ~BishopTest() {
+    }
+
+    virtual void SetUp() {
+        p = std::make_shared<Bishop>(WHITE);
+        p2 = std::make_shared<Bishop>(WHITE);
+        board.clearBoard();
+    }
+
+    virtual void TearDown() {
+
+    }
+};
+
+TEST_F(BishopTest,MovingTest) {
     //given
-    std::shared_ptr<Bishop> p = std::make_shared<Bishop>(WHITE);
 
     //when
-    Board board;
-    board.clearBoard();
 
-
-    std::shared_ptr<BoardSpot> spot = board.getSpot(4,4);
+    spot = board.getSpot(4,4);
     spot->replacePiece(p);
 
-    std::shared_ptr<BoardSpot> testSpot = board.getSpot(4,3);
+    testSpot = board.getSpot(4,3);
 
     //then
 
-    ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
     testSpot = board.getSpot(5,4);
-    ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot = board.getSpot(7,7);
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
     testSpot = board.getSpot(0,0);
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
     testSpot = board.getSpot(7,1);
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
     testSpot = board.getSpot(1,7);
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
 }
 
-TEST(BishopTest,MovingTroughOccupiedSpotsTest) {
-    std::shared_ptr<Bishop> p = std::make_shared<Bishop>(WHITE);
-    std::shared_ptr<Bishop> p2 = std::make_shared<Bishop>(WHITE);
+TEST_F(BishopTest,MovingTroughOccupiedSpotsTest) {
+    //given
     //when
-    Board board;
-    board.clearBoard();
 
-
-    std::shared_ptr<BoardSpot> spot = board.getSpot(4,4);
+    spot = board.getSpot(4,4);
     spot->replacePiece(p);
 
     std::shared_ptr<BoardSpot> testSpot = board.getSpot(7,7);
@@ -48,18 +67,18 @@ TEST(BishopTest,MovingTroughOccupiedSpotsTest) {
     //then
 
 
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot2->replacePiece(p2);
-    ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
 
 
     testSpot = board.getSpot(7,1);
     testSpot2 = board.getSpot(6,2);
-    ASSERT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
 
     testSpot2->replacePiece(p2);
-    ASSERT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
 
 }
