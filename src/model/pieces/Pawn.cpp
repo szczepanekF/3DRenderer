@@ -1,3 +1,4 @@
+
 #include "model/pieces/Pawn.h"
 #include "model/Board.h"
 
@@ -75,9 +76,5 @@ bool Pawn::canTake(const Board &board, const BoardSpot &start, const BoardSpot &
     if (abs(diffY) != 1 || diffX != moveDir) {
         return false;
     }
-
-
-    if (end.isOccupied()) return true;
-    else return false;
-
+    return true;
 }

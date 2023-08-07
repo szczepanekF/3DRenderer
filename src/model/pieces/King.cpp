@@ -32,7 +32,6 @@ bool King::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot
 
 bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
     int diffY = start.getColumn() - end.getColumn();
-    // TODO is king on check ?!
     Colour enemy = WHITE;
 
     if (getColour() == WHITE) {
@@ -53,6 +52,14 @@ bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSp
         spotsToCheck = 3;
         rook = std::dynamic_pointer_cast<Rook>(board.getSpot(row,0)->getPiece());
     }
+    if (rook == nullptr) {
+        return false;
+    }
+    if (rook->isMoved()) {
+        return false;
+    }
+
+
     int startingCol = start.getColumn();
 
     std::shared_ptr<BoardSpot> betweenSpot;
@@ -64,18 +71,8 @@ bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSp
             startingCol -= 1;
         }
         betweenSpot = board.getSpot(row,startingCol);
-        if (betweenSpot->isOccupied()) return false;
+        if (betweenSpot->isOccupied() || board.isSpotAttackedBy(row,startingCol,enemy)) return false;
     }
-
-    if (rook != nullptr) {
-        if (rook->isMoved()) {
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-
 
     return true;
 }
