@@ -17,6 +17,7 @@ public:
     virtual bool canTake(const Board& board, const BoardSpot &start, const BoardSpot &end) const;
 
     Colour getColour() const;
+    Colour getOppositeColour() const;
 
 
 private:

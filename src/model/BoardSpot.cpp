@@ -2,6 +2,7 @@
 #include "model/pieces/Piece.h"
 #include "model/pieces/Rook.h"
 #include <exception>
+
 BoardSpot::BoardSpot(int row, int column, std::shared_ptr<Piece> piece) : row(row), column(column),
                                                                           piece(piece) {
 
@@ -16,13 +17,13 @@ int BoardSpot::getColumn() const {
     return column;
 }
 
-std::shared_ptr<Piece>  BoardSpot::replacePiece(std::shared_ptr<Piece> replacingPiece) {
+std::shared_ptr<Piece> BoardSpot::replacePiece(std::shared_ptr<Piece> replacingPiece) {
     auto pieceHolder = this->piece;
     this->piece = replacingPiece;
     return pieceHolder;
 }
 
-Colour BoardSpot::getPieceColour() const{
+Colour BoardSpot::getPieceColour() const {
     if (piece == nullptr) return NO_COLOUR;
     return piece->getColour();
 }

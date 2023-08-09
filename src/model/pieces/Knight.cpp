@@ -13,7 +13,7 @@ Knight::~Knight() {
 
 }
 
-bool Knight::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
+bool Knight::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
     Colour colour = board.getSpot(end.getRow(), end.getColumn())->getPieceColour();
     if (colour == getColour()) return false;
 

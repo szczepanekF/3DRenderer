@@ -2,13 +2,14 @@
 #include "model/pieces/Rook.h"
 #include "model/Board.h"
 
-class RookTest : public testing::Test{
+class RookTest : public testing::Test {
 
 protected:
     std::shared_ptr<Rook> p;
     Board board;
     std::shared_ptr<BoardSpot> spot;
     std::shared_ptr<BoardSpot> testSpot;
+
     RookTest() {}
 
     ~RookTest() override {
@@ -28,8 +29,7 @@ protected:
 };
 
 
-
-TEST_F(RookTest,MoveToBalnkSpotTest) {
+TEST_F(RookTest, MoveToBalnkSpotTest) {
 
 
     //when
@@ -37,38 +37,38 @@ TEST_F(RookTest,MoveToBalnkSpotTest) {
 
 
 
-    spot = board.getSpot(4,4);
+    spot = board.getSpot(4, 4);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(0,0);
+    testSpot = board.getSpot(0, 0);
 
     //then
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot = board.getSpot(7,7);
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
+    testSpot = board.getSpot(7, 7);
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot = board.getSpot(7,4);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(0,4);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(4,0);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(4,7);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    testSpot = board.getSpot(7, 4);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(0, 4);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(4, 0);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(4, 7);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot = board.getSpot(5,4);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(3,4);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(4,5);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-    testSpot = board.getSpot(4,3);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    testSpot = board.getSpot(5, 4);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(3, 4);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(4, 5);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    testSpot = board.getSpot(4, 3);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 }
 
 
-TEST_F(RookTest,MoveThroughOccupiedSpotTest) {
+TEST_F(RookTest, MoveThroughOccupiedSpotTest) {
 
     std::shared_ptr<Rook> p2 = std::make_shared<Rook>(WHITE);
 
@@ -76,46 +76,45 @@ TEST_F(RookTest,MoveThroughOccupiedSpotTest) {
 
 
 
-    spot = board.getSpot(4,4);
+    spot = board.getSpot(4, 4);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(0,4);
-    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(2,4);
+    testSpot = board.getSpot(0, 4);
+    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(2, 4);
 
     //then
 
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
     testSpot2->replacePiece(p2);
 
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot2));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot2));
 
 
-    testSpot = board.getSpot(4,0);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    testSpot = board.getSpot(4, 0);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot2 = board.getSpot(4,2);
+    testSpot2 = board.getSpot(4, 2);
     testSpot2->replacePiece(p2);
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot2));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot2));
 
 
+    testSpot = board.getSpot(4, 7);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot = board.getSpot(4,7);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
-
-    testSpot2 = board.getSpot(4,5);
+    testSpot2 = board.getSpot(4, 5);
     testSpot2->replacePiece(p2);
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot2));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot2));
 
 
-    testSpot = board.getSpot(7,4);
-    EXPECT_TRUE(p->canMoveTo(board,*spot,*testSpot));
+    testSpot = board.getSpot(7, 4);
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
-    testSpot2 = board.getSpot(5,4);
+    testSpot2 = board.getSpot(5, 4);
     testSpot2->replacePiece(p2);
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot));
-    EXPECT_FALSE(p->canMoveTo(board,*spot,*testSpot2));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot2));
 }

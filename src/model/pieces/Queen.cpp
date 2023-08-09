@@ -15,8 +15,8 @@ Queen::~Queen() {
 
 }
 
-bool Queen::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() == getColour()) return false;
+bool Queen::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    if (board.getSpot(end.getRow(), end.getColumn())->getPieceColour() == getColour()) return false;
     int startingRow = start.getRow();
     int startingCol = start.getColumn();
     int diffX = end.getRow() - startingRow;
@@ -38,7 +38,7 @@ bool Queen::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpo
         if (diffY > 0) startingCol += 1;
         else if (diffY != 0) startingCol -= 1;
 
-        checkedSpot = board.getSpot(startingRow,startingCol);
+        checkedSpot = board.getSpot(startingRow, startingCol);
         if (checkedSpot->isOccupied()) return false;
     }
     return true;

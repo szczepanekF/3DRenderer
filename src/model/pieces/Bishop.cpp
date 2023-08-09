@@ -11,7 +11,7 @@ Bishop::~Bishop() {
 
 }
 
-bool Bishop::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
+bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
     if (end.getPieceColour() == getColour()) return false;
 
 
@@ -36,7 +36,7 @@ bool Bishop::canMoveTo(const Board& board, const BoardSpot &start, const BoardSp
         else startingRow -= 1;
         if (forwardY) startingCol += 1;
         else startingCol -= 1;
-        checkedSpot = board.getSpot(startingRow,startingCol);
+        checkedSpot = board.getSpot(startingRow, startingCol);
         if (checkedSpot->isOccupied()) return false;
     }
 

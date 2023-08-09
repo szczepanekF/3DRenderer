@@ -30,12 +30,10 @@ TEST(PositionTest, ReplaceTest) {
 
     //when
     std::shared_ptr<Piece> piece = std::make_unique<King>();
-    ASSERT_EQ(position.replacePiece(piece),nullptr);
+    ASSERT_EQ(position.replacePiece(piece), nullptr);
 
     //then
-    ASSERT_EQ(position.getPiece().get(),piece.get());
-
-
+    ASSERT_EQ(position.getPiece().get(), piece.get());
 
 
 }

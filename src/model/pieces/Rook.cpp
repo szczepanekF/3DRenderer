@@ -9,8 +9,8 @@ Rook::~Rook() {
 
 }
 
-bool Rook::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(),end.getColumn())->getPieceColour() == getColour()) return false;
+bool Rook::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    if (board.getSpot(end.getRow(), end.getColumn())->getPieceColour() == getColour()) return false;
 
     int startingRow = start.getRow();
     int startingCol = start.getColumn();
@@ -43,9 +43,9 @@ bool Rook::canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot
         else nextPos -= 1;
 
         if (iterateThroughRow) {
-            checkedSpot = board.getSpot(nextPos,start.getColumn());
+            checkedSpot = board.getSpot(nextPos, start.getColumn());
         } else {
-            checkedSpot = board.getSpot( start.getRow(),nextPos);
+            checkedSpot = board.getSpot(start.getRow(), nextPos);
         }
 
         if (checkedSpot->isOccupied()) return false;

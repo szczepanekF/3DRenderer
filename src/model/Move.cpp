@@ -23,7 +23,7 @@ bool Move::canBeMade(const Board &board) {
 
     if (kingSpot->getPiece().get() != piece.get()) {
 //        makeMove();
-        if (board.isSpotAttackedBy(kingSpot->getRow(),kingSpot->getColumn(),enemyColour)) {
+        if (board.isSpotAttackedBy(kingSpot->getRow(), kingSpot->getColumn(), enemyColour)) {
             return false;
         }
 
