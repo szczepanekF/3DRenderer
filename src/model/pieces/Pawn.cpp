@@ -2,7 +2,7 @@
 #include "model/pieces/Pawn.h"
 #include "model/Board.h"
 
-Pawn::Pawn(Colour initColour) : Piece(initColour) {
+Pawn::Pawn(Colour initColour) : MoveSensitivePiece(initColour) {
 
 }
 
@@ -26,13 +26,13 @@ bool Pawn::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
         moveDir = -1;
     }
 
-    if (diffY != 0 && diffX == moveDir) {
+    if (abs(diffY) == 1 && diffX == moveDir) {
         if (end.isOccupied()) return true;
         else return false;
     }
 
 
-    if (!hasMoved) {
+    if (!wasMoved()) {
         if (diffX != moveDir * 2 && diffX != moveDir * 1) {
             return false;
         }
@@ -49,15 +49,6 @@ bool Pawn::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     if (diffX != moveDir * 1) return false;
     if (end.isOccupied()) return false;
     return true;
-}
-
-
-void Pawn::move() {
-    this->hasMoved = true;
-}
-
-bool Pawn::isMoved() const {
-    return hasMoved;
 }
 
 bool Pawn::canTake(const Board &board, const BoardSpot &start, const BoardSpot &end) const {

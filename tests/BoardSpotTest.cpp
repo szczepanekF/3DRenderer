@@ -3,37 +3,81 @@
 #include "model/pieces/King.h"
 #include "model/pieces/Pawn.h"
 
+class BoardSpotTest : public ::testing::Test{
+public:
+    BoardSpot testSpot = BoardSpot(0, 4, nullptr);
 
-TEST(PositionTest, ConstructionTest) {
+protected:
+    virtual void SetUp() {
+
+    }
+    virtual void TearDown() {
+
+    }
+
+
+};
+
+
+
+TEST_F(BoardSpotTest, ConstructionTest) {
     //given
 
-    BoardSpot position(0, 4, nullptr);
-    BoardSpot occupiedPosition(0, 4, std::make_shared<Pawn>());
+
+    BoardSpot occupiedSpot(3, 1, std::make_shared<Pawn>());
 
     //when
 
     //then
-    ASSERT_EQ(position.getRow(), 0);
-    ASSERT_EQ(position.getColumn(), 4);
+    EXPECT_EQ(testSpot.getRow(), 0);
+    EXPECT_EQ(testSpot.getColumn(), 4);
+    EXPECT_EQ(occupiedSpot.getRow(), 3);
+    EXPECT_EQ(occupiedSpot.getColumn(), 1);
 
-    ASSERT_FALSE(position.isOccupied());
-    ASSERT_TRUE(occupiedPosition.isOccupied());
+    EXPECT_FALSE(testSpot.isOccupied());
+    EXPECT_TRUE(occupiedSpot.isOccupied());
 
 }
 
-
-TEST(PositionTest, ReplaceTest) {
+TEST_F(BoardSpotTest, GetPieceColour) {
     //given
 
-    BoardSpot position(0, 4, nullptr);
+    //when
 
+    BoardSpot whitePieceSpot(0, 0, std::make_shared<Pawn>(WHITE));
+    BoardSpot blackPieceSpot(0, 0, std::make_shared<Pawn>(BLACK));
+
+
+
+    //then
+    EXPECT_EQ(testSpot.getPieceColour(), NO_COLOUR);
+    EXPECT_EQ(whitePieceSpot.getPieceColour(), WHITE);
+    EXPECT_EQ(blackPieceSpot.getPieceColour(), BLACK);
+    EXPECT_EQ(testSpot.getPieceOppositeColour(), NO_COLOUR);
+    EXPECT_EQ(whitePieceSpot.getPieceOppositeColour(), BLACK);
+    EXPECT_EQ(blackPieceSpot.getPieceOppositeColour(), WHITE);
+}
+
+TEST_F(BoardSpotTest, GetPieceTest) {
+    //given
+    //when
+    std::shared_ptr<Pawn> testPawn = std::make_shared<Pawn>();
+    BoardSpot  occupiedSpot(0, 0, testPawn);
+    //then
+    EXPECT_EQ(occupiedSpot.getPiece().get(), testPawn.get());
+
+
+}
+
+TEST_F(BoardSpotTest, ReplacePieceTest) {
+    //given
 
     //when
     std::shared_ptr<Piece> piece = std::make_unique<King>();
-    ASSERT_EQ(position.replacePiece(piece), nullptr);
+    EXPECT_EQ(testSpot.replacePiece(piece), nullptr);
 
     //then
-    ASSERT_EQ(position.getPiece().get(), piece.get());
-
-
+    EXPECT_EQ(testSpot.getPiece().get(), piece.get());
+    EXPECT_EQ(testSpot.replacePiece(nullptr).get(), piece.get());
 }
+

@@ -96,32 +96,49 @@ TEST_F(PawnTest, MovingToOccupiedSpotTest) {
     spot->replacePiece(p);
 
     testSpot = board.getSpot(4, 4);
-    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(5, 4);
     testSpot->replacePiece(p2);
+
+    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(5, 4);
+
+
     //then
     EXPECT_TRUE(testSpot->isOccupied());
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
 
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot2));
+
     testSpot->replacePiece(nullptr);
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot2));
+
     testSpot2->replacePiece(p2);
-
-
     EXPECT_FALSE(p2->canMoveTo(board, *testSpot2, *spot));
+
     spot->replacePiece(nullptr);
-
-
     EXPECT_TRUE(p2->canMoveTo(board, *testSpot2, *spot));
+
     testSpot->replacePiece(p);
     EXPECT_FALSE(p2->canMoveTo(board, *testSpot2, *spot));
     EXPECT_FALSE(p2->canMoveTo(board, *testSpot2, *testSpot));
 
 
     //takes Test
+    spot->replacePiece(p);
     testSpot = board.getSpot(4, 5);
     testSpot->replacePiece(p2);
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_TRUE(p2->canMoveTo(board, *testSpot, *spot));
+
+    testSpot->replacePiece(nullptr);
+    testSpot = board.getSpot(4, 6);
+    testSpot->replacePiece(p2);
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p2->canMoveTo(board,*testSpot,*spot));
+
+    testSpot->replacePiece(nullptr);
+    testSpot = board.getSpot(4, 2);
+    testSpot->replacePiece(p2);
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_FALSE(p2->canMoveTo(board,*testSpot,*spot));
 }
 
 

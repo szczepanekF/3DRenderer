@@ -3,9 +3,23 @@
 #include "model/pieces/Pawn.h"
 #include "model/pieces/Queen.h"
 
-TEST(BoardTest, ConstructionTest) {
-    //given
+class BoardTest : public ::testing::Test {
+public:
     Board b;
+protected:
+    virtual void SetUp() {
+
+    }
+
+    virtual void TearDown() {
+
+    }
+};
+
+
+TEST_F(BoardTest, ConstructionTest) {
+    //given
+
     //when
 
     //then
@@ -20,21 +34,42 @@ TEST(BoardTest, ConstructionTest) {
     }
 }
 
-TEST(BoardTest, GetPiecesOfColourTest) {
+TEST_F(BoardTest, GetPiecesOfColourTestShouldEqual16) {
     //given
-    Board b;
+
     //when
 
     //then
+    std::vector<std::shared_ptr<BoardSpot>> spots = b.getPiecesOfColour(BLACK);
+    EXPECT_EQ(spots.size(), 16);
+    for (auto spot : spots) {
+        EXPECT_EQ(spot->getPieceColour(), BLACK);
+    }
+    spots = b.getPiecesOfColour(WHITE);
+    EXPECT_EQ(spots.size(), 16);
 
-    EXPECT_EQ(b.getPiecesOfColour(BLACK).size(), 16);
-    EXPECT_EQ(b.getPiecesOfColour(WHITE).size(), 16);
+    for (auto spot : spots) {
+        EXPECT_EQ(spot->getPieceColour(), WHITE);
+    }
 
 }
 
-TEST(BoardTest, GetKingOfColourTest) {
+TEST_F(BoardTest, GetPiecesOfColourTestShouldEqual0) {
     //given
-    Board b;
+
+    //when
+    b.clearBoard();
+    //then
+
+    EXPECT_EQ(b.getPiecesOfColour(BLACK).size(), 0);
+    EXPECT_EQ(b.getPiecesOfColour(WHITE).size(), 0);
+
+}
+
+
+TEST_F(BoardTest, GetKingOfColourTest) {
+    //given
+
     //when
     std::shared_ptr<Piece> realWhiteKing = b.getSpot(0, 4)->getPiece();
     std::shared_ptr<Piece> realBlackKing = b.getSpot(7, 4)->getPiece();
@@ -53,9 +88,9 @@ TEST(BoardTest, GetKingOfColourTest) {
 
 }
 
-TEST(BoardTest, ClearBoardTest) {
+TEST_F(BoardTest, ClearBoardTest) {
     //given
-    Board b;
+
     //when
     b.clearBoard();
 
@@ -69,9 +104,9 @@ TEST(BoardTest, ClearBoardTest) {
 }
 
 
-TEST(BoardTest, IsSpotAttackedTest) {
+TEST_F(BoardTest, IsSpotAttackedTest) {
     //given
-    Board b;
+
     b.clearBoard();
     std::shared_ptr<Piece> blackP = std::make_shared<Pawn>(BLACK);
     std::shared_ptr<Piece> whiteP = std::make_shared<Queen>(WHITE);

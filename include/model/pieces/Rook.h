@@ -4,21 +4,15 @@
 
 
 
-#include "Piece.h"
+#include "MoveSensitivePiece.h"
 
-class Rook : public Piece{
+class Rook : public MoveSensitivePiece{
 
 public:
     Rook(Colour initColour = WHITE);
     ~Rook() override;
 
     bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
-
-    void move();
-
-    bool isMoved() const;
-private:
-    bool hasMoved = false;
 };
 
 

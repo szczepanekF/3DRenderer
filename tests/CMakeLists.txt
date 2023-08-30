@@ -7,6 +7,7 @@ add_test(ChessTest
         SOURCES
         BoardSpotTest.cpp
         BoardTest.cpp
+        MoveTest.cpp
         piecesTests/KingTest.cpp
         piecesTests/KnightTest.cpp
         piecesTests/QueenTest.cpp

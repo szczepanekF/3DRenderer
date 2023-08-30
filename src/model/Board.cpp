@@ -112,9 +112,11 @@ bool Board::isSpotAttackedBy(int x, int y, Colour colour) const {
     std::shared_ptr<Piece> currPiece;
     for (auto spot: spots) {
         currPiece = spot->getPiece();
+        std::cout<<currPiece->canTake(*this, *spot, *spotToCheck);
         if (currPiece->canTake(*this, *spot, *spotToCheck)) {
             return true;
         }
+
     }
     return false;
 }

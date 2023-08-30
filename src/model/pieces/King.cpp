@@ -8,8 +8,8 @@
 #include "model/Board.h"
 #include "model/pieces/Rook.h"
 
-King::King(Colour initColour) : Piece(initColour) {
-    castlingAvailable = true;
+King::King(Colour initColour) : MoveSensitivePiece(initColour) {
+
 }
 
 King::~King() {
@@ -21,10 +21,7 @@ bool King::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     int x = std::abs(start.getRow() - end.getRow());
     int y = std::abs(start.getColumn() - end.getColumn());
     if (colour == getColour()) {
-        if (isCastlingPossible(x, y)) {
-            return canCastleTo(board, start, end);
-        }
-        return false;
+        return canCastleTo(board, start, end);
     }
 
     if (x == 0 && y == 0) return false;
@@ -35,12 +32,16 @@ bool King::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
 
 
 bool King::isCastlingPossible(const int offsetX, const int offsetY) const {
-    return offsetX == 0 && offsetY > 1 && castlingAvailable;
+    return offsetX == 0 && offsetY > 1 && !wasMoved();
 }
 
 
 bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
     int diffY = end.getColumn() - start.getColumn();
+    int diffX = end.getRow() - start.getRow();
+    if (!isCastlingPossible(std::abs(diffX), std::abs(diffY))) {
+        return false;
+    }
 
     if (!isRookValidForCastling(end)) {
         return false;
@@ -72,11 +73,12 @@ bool King::isRookValidForCastling(const BoardSpot &rookSpot) const {
     if (rook == nullptr) {
         return false;
     }
-    if (rook->isMoved()) {
+    if (rook->wasMoved()) {
         return false;
     }
     return true;
 }
+
 
 
 

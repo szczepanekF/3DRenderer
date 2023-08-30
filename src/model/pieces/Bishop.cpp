@@ -21,7 +21,9 @@ bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
     int diffY = end.getColumn() - startingCol;
     int x = std::abs(diffX);
     int y = std::abs(diffY);
+
     if (x == 0 && y == 0) return false;
+
     if (x != y) return false;
 
 
@@ -39,6 +41,7 @@ bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
         checkedSpot = board.getSpot(startingRow, startingCol);
         if (checkedSpot->isOccupied()) return false;
     }
+
 
 
     return true;

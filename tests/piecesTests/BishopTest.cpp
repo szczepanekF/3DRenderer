@@ -20,7 +20,7 @@ protected:
 
     virtual void SetUp() {
         p = std::make_shared<Bishop>(WHITE);
-        p2 = std::make_shared<Bishop>(WHITE);
+        p2 = std::make_shared<Bishop>(BLACK);
         board.clearBoard();
     }
 
@@ -71,6 +71,7 @@ TEST_F(BishopTest, MovingTroughOccupiedSpotsTest) {
 
     testSpot2->replacePiece(p2);
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot2));
 
 
     testSpot = board.getSpot(7, 1);
@@ -79,5 +80,7 @@ TEST_F(BishopTest, MovingTroughOccupiedSpotsTest) {
 
     testSpot2->replacePiece(p2);
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
-
+    EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot2));
 }
+
+

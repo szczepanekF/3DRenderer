@@ -6,6 +6,7 @@ add_lib(src
         model/pieces/Bishop.cpp
         model/pieces/Rook.cpp
         model/pieces/Queen.cpp
+        model/pieces/MoveSensitivePiece.cpp
         model/pieces/Pawn.cpp
         model/Board.cpp
         model/BoardSpot.cpp

@@ -1,7 +1,7 @@
 #include "model/pieces/Rook.h"
 #include "model/Board.h"
 
-Rook::Rook(Colour initColour) : Piece(initColour) {
+Rook::Rook(Colour initColour) : MoveSensitivePiece(initColour) {
 
 }
 
@@ -54,12 +54,5 @@ bool Rook::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     return true;
 }
 
-void Rook::move() {
-    this->hasMoved = true;
-}
-
-bool Rook::isMoved() const {
-    return hasMoved;
-}
 
 
