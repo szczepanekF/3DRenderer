@@ -3,7 +3,7 @@
 #include "model/pieces/King.h"
 #include "model/pieces/Pawn.h"
 
-class BoardSpotTest : public ::testing::Test{
+class BoardSpotTest : public ::testing::Test {
 public:
     BoardSpot testSpot = BoardSpot(0, 4, nullptr);
 
@@ -11,13 +11,13 @@ protected:
     virtual void SetUp() {
 
     }
+
     virtual void TearDown() {
 
     }
 
 
 };
-
 
 
 TEST_F(BoardSpotTest, ConstructionTest) {
@@ -62,9 +62,9 @@ TEST_F(BoardSpotTest, GetPieceTest) {
     //given
     //when
     std::shared_ptr<Pawn> testPawn = std::make_shared<Pawn>();
-    BoardSpot  occupiedSpot(0, 0, testPawn);
+    BoardSpot occupiedSpot(0, 0, testPawn);
     //then
-    EXPECT_EQ(occupiedSpot.getPiece().get(), testPawn.get());
+    EXPECT_EQ(occupiedSpot.getPiece(), testPawn);
 
 
 }
@@ -77,7 +77,7 @@ TEST_F(BoardSpotTest, ReplacePieceTest) {
     EXPECT_EQ(testSpot.replacePiece(piece), nullptr);
 
     //then
-    EXPECT_EQ(testSpot.getPiece().get(), piece.get());
-    EXPECT_EQ(testSpot.replacePiece(nullptr).get(), piece.get());
+    EXPECT_EQ(testSpot.getPiece(), piece);
+    EXPECT_EQ(testSpot.replacePiece(nullptr), piece);
 }
 

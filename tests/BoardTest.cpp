@@ -42,13 +42,13 @@ TEST_F(BoardTest, GetPiecesOfColourTestShouldEqual16) {
     //then
     std::vector<std::shared_ptr<BoardSpot>> spots = b.getPiecesOfColour(BLACK);
     EXPECT_EQ(spots.size(), 16);
-    for (auto spot : spots) {
+    for (auto spot: spots) {
         EXPECT_EQ(spot->getPieceColour(), BLACK);
     }
     spots = b.getPiecesOfColour(WHITE);
     EXPECT_EQ(spots.size(), 16);
 
-    for (auto spot : spots) {
+    for (auto spot: spots) {
         EXPECT_EQ(spot->getPieceColour(), WHITE);
     }
 
@@ -80,11 +80,11 @@ TEST_F(BoardTest, GetKingOfColourTest) {
             b.getKingSpotOfColour(BLACK)->getPiece());
     //then
 
-    EXPECT_EQ(realWhiteKing.get(), testWhiteKing.get());
-    EXPECT_EQ(realBlackKing.get(), testBlackKing.get());
+    EXPECT_EQ(realWhiteKing, testWhiteKing);
+    EXPECT_EQ(realBlackKing, testBlackKing);
 
-    EXPECT_NE(realWhiteKing.get(), testBlackKing.get());
-    EXPECT_NE(realBlackKing.get(), testWhiteKing.get());
+    EXPECT_NE(realWhiteKing, testBlackKing);
+    EXPECT_NE(realBlackKing, testWhiteKing);
 
 }
 

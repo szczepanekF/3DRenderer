@@ -5,7 +5,7 @@
 
 #include "Piece.h"
 
-class Queen : public Piece{
+class Queen : public Piece {
 public:
     Queen(Colour initColour = WHITE);
     ~Queen() override;

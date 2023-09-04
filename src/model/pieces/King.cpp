@@ -2,7 +2,7 @@
 // Created by szczepan on 26.04.23.
 //
 
-#include <iostream>
+
 #include "model/pieces/King.h"
 #include "model/BoardSpot.h"
 #include "model/Board.h"

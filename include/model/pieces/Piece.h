@@ -19,7 +19,6 @@ public:
     Colour getColour() const;
     Colour getOppositeColour() const;
 
-
 private:
     Colour colour = WHITE;
 };

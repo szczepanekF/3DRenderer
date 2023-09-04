@@ -132,13 +132,13 @@ TEST_F(PawnTest, MovingToOccupiedSpotTest) {
     testSpot = board.getSpot(4, 6);
     testSpot->replacePiece(p2);
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
-    EXPECT_FALSE(p2->canMoveTo(board,*testSpot,*spot));
+    EXPECT_FALSE(p2->canMoveTo(board, *testSpot, *spot));
 
     testSpot->replacePiece(nullptr);
     testSpot = board.getSpot(4, 2);
     testSpot->replacePiece(p2);
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
-    EXPECT_FALSE(p2->canMoveTo(board,*testSpot,*spot));
+    EXPECT_FALSE(p2->canMoveTo(board, *testSpot, *spot));
 }
 
 

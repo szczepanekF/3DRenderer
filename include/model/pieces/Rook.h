@@ -6,7 +6,7 @@
 
 #include "MoveSensitivePiece.h"
 
-class Rook : public MoveSensitivePiece{
+class Rook : public MoveSensitivePiece {
 
 public:
     Rook(Colour initColour = WHITE);

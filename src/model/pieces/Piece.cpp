@@ -4,13 +4,13 @@
 
 #include "model/pieces/Piece.h"
 
-Piece::Piece(Colour initColour): colour(initColour) {
+Piece::Piece(Colour initColour) : colour(initColour) {
 
 }
 
 
 bool Piece::canTake(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
-    return canMoveTo(board,start,end);
+    return canMoveTo(board, start, end);
 }
 
 Colour Piece::getColour() const {

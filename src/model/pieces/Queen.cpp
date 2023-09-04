@@ -2,7 +2,6 @@
 // Created by szczepan on 26.04.23.
 //
 
-#include <iostream>
 #include "model/pieces/Queen.h"
 #include "model/Board.h"
 

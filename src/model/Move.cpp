@@ -4,7 +4,7 @@
 Move::Move(const std::shared_ptr<BoardSpot> &fromSpot, const std::shared_ptr<BoardSpot> &toSpot) : fromSpot(fromSpot),
                                                                                                    toSpot(toSpot) {}
 
-bool Move::canBeMade(const Board &board) {
+bool Move::isLegal(const Board &board) {
     if (arePiecesSameColour()) {
         if (isCastling(board)) {
             return true;
@@ -23,12 +23,11 @@ bool Move::canBeMade(const Board &board) {
     }
 
 
-
     Colour fromSpotColour = fromSpot->getPieceColour();
     std::shared_ptr<BoardSpot> kingSpot = board.getKingSpotOfColour(fromSpotColour);
 
 
-    if (kingSpot->getPiece().get() != fromPiece.get()) {
+    if (kingSpot->getPiece() != fromPiece) {
         Colour enemyColour = fromSpot->getPieceOppositeColour();
         make();
         if (board.isSpotAttackedBy(kingSpot->getRow(), kingSpot->getColumn(), enemyColour)) {
@@ -41,7 +40,6 @@ bool Move::canBeMade(const Board &board) {
 
     return true;
 }
-
 
 
 bool Move::arePiecesSameColour() {
@@ -74,12 +72,7 @@ void Move::revert() {
 bool Move::isCastling(const Board &board) {
     std::shared_ptr<King> king = std::dynamic_pointer_cast<King>(fromSpot->getPiece());
     if (king != nullptr) {
-        return king->canCastleTo(board,*fromSpot,*toSpot);
+        return king->canCastleTo(board, *fromSpot, *toSpot);
     }
     return false;
-}
-
-bool Move::isMovingPieceKing() {
-    std::shared_ptr<King> possibleKing = std::dynamic_pointer_cast<King>(fromSpot->getPiece());
-    return possibleKing != nullptr;
 }

@@ -8,7 +8,7 @@ class Move {
 
 public:
     Move(const std::shared_ptr<BoardSpot> &fromSpot, const std::shared_ptr<BoardSpot> &toSpot);
-    bool canBeMade(const Board &board);
+    bool isLegal(const Board &board);
     void make();
     void revert();
 
@@ -19,6 +19,6 @@ private:
 
     bool arePiecesSameColour();
     bool isCastling(const Board &board);
-    bool isMovingPieceKing();
+
 };
 

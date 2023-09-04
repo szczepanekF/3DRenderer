@@ -43,7 +43,6 @@ bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
     }
 
 
-
     return true;
 }
 

@@ -5,7 +5,7 @@
 
 class BoardSpot;
 class Board;
-class King : public MoveSensitivePiece{
+class King : public MoveSensitivePiece {
 
 public:
     King(Colour initColour = WHITE);
