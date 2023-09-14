@@ -42,4 +42,9 @@ std::shared_ptr<Piece> BoardSpot::getPiece() const {
     return piece;
 }
 
+std::string BoardSpot::getSpotTexturePath() const {
+    if (piece == nullptr) return "";
+    return piece->getTexturePath();
+}
+
 

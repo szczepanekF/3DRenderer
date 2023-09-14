@@ -24,3 +24,9 @@ bool Knight::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
     return x * y == 2;
 }
 
+std::string Knight::getTexturePath() const {
+    return Piece::getTexturePath()+"knight.png";
+}
+
+
+

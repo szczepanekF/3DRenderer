@@ -6,6 +6,8 @@
 class BoardSpot;
 class Board;
 class King : public MoveSensitivePiece {
+public:
+    std::string getTexturePath() const override;
 
 public:
     King(Colour initColour = WHITE);

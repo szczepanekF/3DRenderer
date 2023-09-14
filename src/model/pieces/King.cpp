@@ -79,6 +79,10 @@ bool King::isRookValidForCastling(const BoardSpot &rookSpot) const {
     return true;
 }
 
+std::string King::getTexturePath() const {
+    return Piece::getTexturePath()+"king.png";
+}
+
 
 
 

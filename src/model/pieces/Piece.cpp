@@ -24,4 +24,11 @@ Colour Piece::getOppositeColour() const {
     return WHITE;
 }
 
+std::string Piece::getTexturePath() const {
+    if (colour == WHITE) {
+        return "../../images/white/";
+    }
+    return "../../images/black/";
+}
+
 

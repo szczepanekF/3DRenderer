@@ -121,6 +121,10 @@ bool Board::isSpotAttackedBy(int x, int y, Colour colour) const {
     return false;
 }
 
+std::string Board::getSpotTexturePath(int row, int col) const {
+    return getSpot(row, col)->getSpotTexturePath();
+}
+
 
 
 

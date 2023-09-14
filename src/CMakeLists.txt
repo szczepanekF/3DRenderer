@@ -13,7 +13,8 @@ add_lib(src
         model/Move.cpp
         model/PositionFactory.cpp
         model/Game.cpp
-
+        view/MainGameView.cpp
+        view/BoardActionsHandler.cpp
         )
 
 add_app(${PROJECT_NAME}

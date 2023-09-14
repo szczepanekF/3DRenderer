@@ -69,3 +69,7 @@ bool Pawn::canTake(const Board &board, const BoardSpot &start, const BoardSpot &
     }
     return true;
 }
+
+std::string Pawn::getTexturePath() const {
+    return Piece::getTexturePath()+"pawn.png";
+}

@@ -6,10 +6,6 @@ Game::Game(const Board &gameBoard) : gameBoard(gameBoard) {
     visibleMove = 0;
 }
 
-void Game::turn() {
-
-}
-
 bool Game::playerMove(int srcX, int srcY, int dstX, int dstY) {
     std::shared_ptr<BoardSpot> srcSpot = gameBoard.getSpot(srcX, srcY);
     if (turnColor != srcSpot->getPieceColour()) {

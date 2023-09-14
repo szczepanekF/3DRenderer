@@ -1,7 +1,6 @@
 [requires]
-glfw/3.3.8
+sfml/2.6.0
 gtest/1.11.0
-
-
 [generators]
 cmake
+txt

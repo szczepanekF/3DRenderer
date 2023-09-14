@@ -11,6 +11,9 @@ public:
     ~Queen() override;
 
     bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
+
+    std::string getTexturePath() const override;
 };
+
 
 

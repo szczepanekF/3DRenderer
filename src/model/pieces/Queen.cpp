@@ -1,7 +1,3 @@
-//
-// Created by szczepan on 26.04.23.
-//
-
 #include "model/pieces/Queen.h"
 #include "model/Board.h"
 
@@ -43,3 +39,6 @@ bool Queen::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpo
     return true;
 }
 
+std::string Queen::getTexturePath() const {
+    return Piece::getTexturePath()+"queen.png";
+}

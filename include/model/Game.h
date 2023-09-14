@@ -9,7 +9,8 @@ public:
     virtual ~Game();
     explicit Game(const Board &gameBoard);
 
-    void turn();
+
+    bool playerMove(int srcX, int srcY, int dstX, int dstY);
     void resetGame();
     void rewindLastMove();
     void rewindAllMoves();
@@ -23,8 +24,6 @@ private:
 
     unsigned long long visibleMove;
 
-
-    bool playerMove(int srcX, int srcY, int dstX, int dstY);
     bool isMoveValid();
 
 

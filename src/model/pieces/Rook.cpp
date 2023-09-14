@@ -54,5 +54,9 @@ bool Rook::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     return true;
 }
 
+std::string Rook::getTexturePath() const {
+    return Piece::getTexturePath()+"rook.png";
+}
+
 
 

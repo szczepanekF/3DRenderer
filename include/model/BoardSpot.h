@@ -21,6 +21,7 @@ public:
     int getRow() const;
     int getColumn() const;
 
+    std::string getSpotTexturePath() const;
 
 
 

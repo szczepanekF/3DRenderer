@@ -1,12 +1,10 @@
 #pragma once
 
-
-
-
-
 #include "MoveSensitivePiece.h"
 
 class Rook : public MoveSensitivePiece {
+public:
+    std::string getTexturePath() const override;
 
 public:
     Rook(Colour initColour = WHITE);

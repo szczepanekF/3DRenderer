@@ -46,5 +46,9 @@ bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSp
     return true;
 }
 
+std::string Bishop::getTexturePath() const {
+    return Piece::getTexturePath()+"bishop.png";
+}
+
 
 
