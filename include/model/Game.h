@@ -16,15 +16,15 @@ public:
     void rewindAllMoves();
     void forwardOneMove();
     void forwardAllMoves();
+    Colour getTurnColour() const;
 private:
 
     Board gameBoard;
     std::deque<std::unique_ptr<Move>> moves;
-    Colour turnColor;
+    Colour turnColour;
 
     unsigned long long visibleMove;
 
-    bool isMoveValid();
 
 
 

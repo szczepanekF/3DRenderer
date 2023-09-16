@@ -11,14 +11,12 @@ void MainGameView::run()  {
         window.clear();
         drawBoard();
         handler.updateBoard(window);
-
+        window.display();
         sf::Event event;
         while( window.pollEvent( event ) ) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-
-
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 handler.onPressAction(window);
@@ -27,11 +25,10 @@ void MainGameView::run()  {
             if (event.type == sf::Event::MouseButtonReleased) {
                 handler.onReleaseAction(window);
             }
-
         }
 
 
-        window.display();
+
 
     }
 }

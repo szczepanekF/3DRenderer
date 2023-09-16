@@ -64,6 +64,12 @@ TEST_F(PawnTest, MovingToBlankSpotTest) {
     testSpot = board.getSpot(5, 4);
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
+    testSpot = board.getSpot(5, 5);
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+
+    testSpot = board.getSpot(5, 3);
+    EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
+
     testSpot = board.getSpot(6, 4);
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
 

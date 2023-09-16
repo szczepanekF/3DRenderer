@@ -17,9 +17,7 @@ bool Pawn::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     int diffX = end.getRow() - startingRow;
     int diffY = end.getColumn() - startingCol;
 
-    if (abs(diffY) > 1) {
-        return false;
-    }
+
 
     int moveDir = 1;
     if (getColour() == BLACK) {
@@ -29,8 +27,9 @@ bool Pawn::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     if (abs(diffY) == 1 && diffX == moveDir) {
         if (end.isOccupied()) return true;
         else return false;
+    } else if (abs(diffY) != 0) {
+        return false;
     }
-
 
     if (!wasMoved()) {
         if (diffX != moveDir * 2 && diffX != moveDir * 1) {

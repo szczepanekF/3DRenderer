@@ -32,18 +32,19 @@ bool King::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
 
 
 bool King::isCastlingPossible(const int offsetX, const int offsetY) const {
-    return offsetX == 0 && offsetY > 1 && !wasMoved();
+    return offsetX == 0 && (abs(offsetY) == 2 || offsetY == 3 || offsetY == -4) && !wasMoved();
 }
 
 
 bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
     int diffY = end.getColumn() - start.getColumn();
     int diffX = end.getRow() - start.getRow();
-    if (!isCastlingPossible(std::abs(diffX), std::abs(diffY))) {
+    if (!isCastlingPossible(diffX, diffY)) {
         return false;
     }
 
-    if (!isRookValidForCastling(end)) {
+    int rookCol = (diffY > 0) ? 7 : 0;
+    if (!isRookValidForCastling(*board.getSpot(end.getRow(),rookCol))) {
         return false;
     }
 
@@ -52,13 +53,10 @@ bool King::canCastleTo(const Board &board, const BoardSpot &start, const BoardSp
     }
 
     int startingCol = start.getColumn();
-    int spotsToCheck = abs(diffY) - 1;
+    int spotsToCheck = abs(rookCol - startingCol) - 1;
     for (int i = 0; i < spotsToCheck; i++) {
-        if (diffY > 0) {
-            startingCol += 1;
-        } else {
-            startingCol -= 1;
-        }
+        startingCol += (diffY > 0) ? 1 : -1;
+
         std::shared_ptr<BoardSpot> midSpot = board.getSpot(start.getRow(), startingCol);
         if (midSpot->isOccupied() || board.isSpotAttackedBy(start.getRow(), startingCol,
                                                             getOppositeColour())) {

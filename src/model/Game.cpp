@@ -1,39 +1,35 @@
-
 #include "model/Game.h"
 
 Game::Game(const Board &gameBoard) : gameBoard(gameBoard) {
-    turnColor = WHITE;
+    turnColour = WHITE;
     visibleMove = 0;
 }
 
 bool Game::playerMove(int srcX, int srcY, int dstX, int dstY) {
     std::shared_ptr<BoardSpot> srcSpot = gameBoard.getSpot(srcX, srcY);
-    if (turnColor != srcSpot->getPieceColour()) {
+    if (turnColour != srcSpot->getPieceColour()) {
         return false;
     }
 
     std::shared_ptr<BoardSpot> dstSpot = gameBoard.getSpot(dstX, dstY);
     std::unique_ptr<Move> move = std::make_unique<Move>(srcSpot, dstSpot);
-    if (move->isLegal(gameBoard)) {
-        move->make();
+
+    std::shared_ptr<Piece> piece = srcSpot->getPiece();
+    Colour oppositeColour = piece->getOppositeColour();
+
+    if (move->makeIfIsLegal(gameBoard)) {
+        turnColour = oppositeColour;
         moves.emplace_back(std::move(move));
-        turnColor = srcSpot->getPieceOppositeColour();
         return true;
     }
     return false;
 }
 
-bool Game::isMoveValid() {
-    return false;
-}
-
-
-
 void Game::resetGame() {
     gameBoard.initBoard();
     moves.clear();
     visibleMove = 0;
-    turnColor = WHITE;
+    turnColour = WHITE;
 }
 
 void Game::rewindLastMove() {
@@ -63,6 +59,10 @@ void Game::forwardAllMoves() {
         visibleMove++;
         moves[visibleMove]->make();
     }
+}
+
+Colour Game::getTurnColour() const {
+    return turnColour;
 }
 
 Game::~Game() = default;
