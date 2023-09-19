@@ -16,11 +16,16 @@ public:
     void initBoard();
     void clearBoard();
     std::shared_ptr<BoardSpot> getSpot(int row, int col) const;
+
     std::vector<std::shared_ptr<BoardSpot>> getPiecesOfColour(Colour colour) const;
     std::shared_ptr<BoardSpot> getKingSpotOfColour(Colour colour) const;
-    bool isSpotAttackedBy(int row, int col, Colour colour) const;
-    std::string getSpotTexturePath(int row, int col) const;
 
+    bool isSpotAttackedBy(int row, int col, Colour colour) const;
+
+    void setEnPassantCol(int col);
+    int getEnPassantCol() const;
+
+    std::string getSpotTexturePath(int row, int col) const;
 private:
     void initializeOccupiedSpots();
     void initializeEmptySpots();
@@ -29,6 +34,7 @@ private:
 
 
     std::shared_ptr<BoardSpot> board[BOARD_LENGTH][BOARD_LENGTH];
+    int enPassantCol;
 };
 
 

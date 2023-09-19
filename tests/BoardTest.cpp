@@ -32,6 +32,8 @@ TEST_F(BoardTest, ConstructionTest) {
             EXPECT_NE(b.getSpot(i, j), nullptr);
         }
     }
+
+    EXPECT_EQ(b.getEnPassantCol(), -1);
 }
 
 TEST_F(BoardTest, GetPiecesOfColourTestShouldEqual16) {
@@ -135,4 +137,19 @@ TEST_F(BoardTest, IsSpotAttackedTest) {
     EXPECT_TRUE(b.isSpotAttackedBy(3, 0, WHITE));
     EXPECT_TRUE(b.isSpotAttackedBy(0, 0, WHITE));
 
+}
+
+TEST_F(BoardTest, SetEnPassantColTest) {
+    //given & when & then
+    b.setEnPassantCol(3);
+    EXPECT_EQ(b.getEnPassantCol(), 3);
+    b.setEnPassantCol(7);
+    EXPECT_EQ(b.getEnPassantCol(), 7);
+    b.setEnPassantCol(-1);
+    EXPECT_EQ(b.getEnPassantCol(), -1);
+
+    b.setEnPassantCol(-2);
+    EXPECT_EQ(b.getEnPassantCol(), -1);
+    b.setEnPassantCol(-8);
+    EXPECT_EQ(b.getEnPassantCol(), -1);
 }

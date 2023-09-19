@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "model/Move.h"
+#include "model/RegularMove.h"
 #include "model/Board.h"
 #include "model/pieces/Pawn.h"
 #include "model/pieces/Bishop.h"
@@ -13,7 +13,7 @@ protected:
     Board board;
     std::shared_ptr<BoardSpot> fromSpotTest;
     std::shared_ptr<BoardSpot> toSpotTest;
-    std::shared_ptr<Move> move;
+    std::shared_ptr<RegularMove> move;
     std::shared_ptr<MoveSensitivePiece> whiteKing;
     std::shared_ptr<MoveSensitivePiece> blackKing;
 
@@ -46,8 +46,8 @@ TEST_F(MoveTest, CanBeMadeTest) {
     fromSpotTest = board.getSpot(1, 1);
 
     //when
-    Move testMove1(fromSpotTest, toSpotTest);
-    Move testMove2(toSpotTest, fromSpotTest);
+    RegularMove testMove1(fromSpotTest, toSpotTest);
+    RegularMove testMove2(toSpotTest, fromSpotTest);
     //then
     EXPECT_FALSE(testMove1.isLegal(board));
     EXPECT_FALSE(testMove2.isLegal(board));
@@ -71,7 +71,7 @@ TEST_F(MoveTest, ShouldNotBeAbleToBeMadeTest) {
 
     //when
     fromSpotTest->replacePiece(testPawn);
-    move = std::make_shared<Move>(fromSpotTest, toSpotTest);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
 
     //then
     EXPECT_TRUE(move->isLegal(board));
@@ -90,11 +90,24 @@ TEST_F(MoveTest, ShouldBeAbleToCastleTest) {
 
     //when
     toSpotTest->replacePiece(testRook);
-    move = std::make_shared<Move>(fromSpotTest, toSpotTest);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
 
     //then
     EXPECT_TRUE(move->isLegal(board));
     board.getSpot(7, 0)->replacePiece(testQueen);
+
+    EXPECT_TRUE(move->isLegal(board));
+
+    toSpotTest = board.getSpot(0, 1);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+    EXPECT_FALSE(move->isLegal(board));
+
+    toSpotTest = board.getSpot(0, 2);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+    EXPECT_TRUE(move->isLegal(board));
+
+    toSpotTest = board.getSpot(0, 3);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
     EXPECT_TRUE(move->isLegal(board));
 }
 
@@ -108,7 +121,7 @@ TEST_F(MoveTest, ShouldNotBeAbleToCastleOnAndThroughCheckTest) {
 
     //when
     toSpotTest->replacePiece(testRook);
-    move = std::make_shared<Move>(fromSpotTest, toSpotTest);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
 
     //then
     EXPECT_TRUE(move->isLegal(board));
@@ -132,14 +145,13 @@ TEST_F(MoveTest, ShouldNotBeAbleToCastleOnAndThroughCheckTest) {
 TEST_F(MoveTest, ShouldNotBeAbleToCastleAfterMoveTest) {
     //given
     std::shared_ptr<Rook> testRook = std::make_shared<Rook>(WHITE);
-
     fromSpotTest = board.getSpot(0, 4);
     toSpotTest = board.getSpot(0, 0);
 
     //when
     toSpotTest->replacePiece(testRook);
     testRook->move();
-    move = std::make_shared<Move>(fromSpotTest, toSpotTest);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
 
     //then
     EXPECT_FALSE(move->isLegal(board));
@@ -149,30 +161,138 @@ TEST_F(MoveTest, ShouldNotBeAbleToCastleAfterMoveTest) {
     EXPECT_FALSE(move->isLegal(board));
 }
 
+TEST_F(MoveTest, MakeIfIsLegalAndRevertIfWasMadeTest) {
+    //given
+    std::shared_ptr<Pawn> testPawn1 = std::make_shared<Pawn>(BLACK);
+    std::shared_ptr<Pawn> testPawn2 = std::make_shared<Pawn>(WHITE);
+    fromSpotTest = board.getSpot(1, 1);
+    toSpotTest = board.getSpot(0, 0);
+
+    //when
+    fromSpotTest->replacePiece(testPawn1);
+    toSpotTest->replacePiece(testPawn2);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+
+    //then
+
+    ASSERT_FALSE(move->revertIfWasMade(board));
+    ASSERT_TRUE(move->makeIfIsLegal(board));
+
+    EXPECT_TRUE(testPawn1->wasMoved());
+
+    ASSERT_FALSE(move->makeIfIsLegal(board));
+    ASSERT_TRUE(move->revertIfWasMade(board));
+
+    toSpotTest->replacePiece(nullptr);
+    EXPECT_FALSE(move->makeIfIsLegal(board));
+    EXPECT_FALSE(testPawn1->wasMoved());
+}
+
 
 TEST_F(MoveTest, MakeAndRevertMoveTest) {
     //given
     std::shared_ptr<Pawn> testPawn1 = std::make_shared<Pawn>(BLACK);
     std::shared_ptr<Pawn> testPawn2 = std::make_shared<Pawn>(WHITE);
-    fromSpotTest = std::make_shared<BoardSpot>(1, 1, testPawn1);
-    toSpotTest = std::make_shared<BoardSpot>(0, 0, testPawn2);
+
+    fromSpotTest = board.getSpot(1, 1);
+    toSpotTest = board.getSpot(0, 0);
 
     //when
-    move = std::make_shared<Move>(fromSpotTest, toSpotTest);
-    move->make();
+    fromSpotTest->replacePiece(testPawn1);
+    toSpotTest->replacePiece(testPawn2);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+    move->makeIfIsLegal(board);
 
     //then
     EXPECT_EQ(fromSpotTest->getPiece(), nullptr);
     EXPECT_EQ(toSpotTest->getPiece(), testPawn1);
     EXPECT_TRUE(testPawn1->wasMoved());
 
-    move->revert();
+    move->revertIfWasMade(board);
 
     EXPECT_FALSE(testPawn1->wasMoved());
 
     EXPECT_EQ(fromSpotTest->getPiece(), testPawn1);
     EXPECT_EQ(toSpotTest->getPiece(), testPawn2);
-
 }
 
+
+
+TEST_F(MoveTest, CastlingPerformAndUnperformTest) {
+    //given
+    std::shared_ptr<Rook> rook = std::make_shared<Rook>(WHITE);
+    fromSpotTest = board.getSpot(0, 4);
+    std::shared_ptr<King> king = std::dynamic_pointer_cast<King>(fromSpotTest->getPiece());
+    toSpotTest = board.getSpot(0, 0);
+    toSpotTest->replacePiece(rook);
+
+    //when
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+    std::shared_ptr<BoardSpot> newKingSpot = board.getSpot(0, 2);
+    std::shared_ptr<BoardSpot> newRookSpot = board.getSpot(0, 3);
+    move->makeIfIsLegal(board);
+
+    //then
+
+    EXPECT_TRUE(king->wasMoved());
+    EXPECT_TRUE(rook->wasMoved());
+
+    EXPECT_NE(king, fromSpotTest->getPiece());
+    EXPECT_NE(rook, toSpotTest->getPiece());
+    EXPECT_EQ(king, newKingSpot->getPiece());
+    EXPECT_EQ(rook, newRookSpot->getPiece());
+
+    move->revertIfWasMade(board);
+    EXPECT_FALSE(king->wasMoved());
+    EXPECT_FALSE(rook->wasMoved());
+
+    EXPECT_NE(king, newKingSpot->getPiece());
+    EXPECT_NE(rook, newRookSpot->getPiece());
+    EXPECT_EQ(king, fromSpotTest->getPiece());
+    EXPECT_EQ(rook, toSpotTest->getPiece());
+
+    std::shared_ptr<BoardSpot> endSpot = board.getSpot(0, 2);
+    move = std::make_shared<RegularMove>(fromSpotTest, endSpot);
+
+    move->makeIfIsLegal(board);
+    EXPECT_TRUE(king->wasMoved());
+    EXPECT_TRUE(rook->wasMoved());
+
+    EXPECT_NE(king, fromSpotTest->getPiece());
+    EXPECT_NE(rook, toSpotTest->getPiece());
+    EXPECT_EQ(king, newKingSpot->getPiece());
+    EXPECT_EQ(rook, newRookSpot->getPiece());
+
+    move->revertIfWasMade(board);
+    EXPECT_FALSE(king->wasMoved());
+    EXPECT_FALSE(rook->wasMoved());
+
+    EXPECT_NE(king, newKingSpot->getPiece());
+    EXPECT_NE(rook, newRookSpot->getPiece());
+    EXPECT_EQ(king, fromSpotTest->getPiece());
+    EXPECT_EQ(rook, toSpotTest->getPiece());
+}
+
+
+
+TEST_F(MoveTest, UpdateEnPassantTest) {
+    //given
+
+    std::shared_ptr<Pawn> testPawn = std::make_shared<Pawn>(WHITE);
+    fromSpotTest = board.getSpot(0, 0);
+    toSpotTest = board.getSpot(2, 0);
+
+    //when
+    fromSpotTest->replacePiece(testPawn);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+
+    //then
+    ASSERT_TRUE(move->makeIfIsLegal(board));
+
+    EXPECT_EQ(board.getEnPassantCol(), toSpotTest->getColumn());
+
+    ASSERT_TRUE(move->revertIfWasMade(board));
+
+    EXPECT_EQ(board.getEnPassantCol(), -1);
+}
 

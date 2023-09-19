@@ -101,14 +101,22 @@ TEST_F(KingTest, CastleThroguhOtherPiecesTest) {
     testSpot = board.getSpot(0, 7);
     //then
 
-
-
     EXPECT_FALSE(king->canMoveTo(board, *spot, *testSpot));
 
     testSpot->replacePiece(rook);
     testSpot = board.getSpot(0, 0);
     testSpot->replacePiece(rook);
     EXPECT_TRUE(king->canMoveTo(board, *spot, *testSpot));
+
+    testSpot = board.getSpot(0, 6);
+    EXPECT_TRUE(king->canMoveTo(board, *spot, *testSpot));
+
+    testSpot = board.getSpot(0, 1);
+    EXPECT_FALSE(king->canMoveTo(board, *spot, *testSpot));
+
+    testSpot = board.getSpot(0, 2);
+    EXPECT_TRUE(king->canMoveTo(board, *spot, *testSpot));
+
     board.getSpot(0, 1)->replacePiece(p2);
     EXPECT_FALSE(king->canMoveTo(board, *spot, *testSpot));
 

@@ -10,7 +10,8 @@ add_lib(src
         model/pieces/Pawn.cpp
         model/Board.cpp
         model/BoardSpot.cpp
-        model/Move.cpp
+        model/RegularMove.cpp
+        model/PromotionMove.cpp
         model/PositionFactory.cpp
         model/Game.cpp
         view/MainGameView.cpp

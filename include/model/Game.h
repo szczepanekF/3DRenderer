@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Board.h"
-#include "Move.h"
+#include "RegularMove.h"
 #include <deque>
 
 class Game {
@@ -12,10 +12,12 @@ public:
 
     bool playerMove(int srcX, int srcY, int dstX, int dstY);
     void resetGame();
+    void makePromotionMove(int srcX, int srcY, int pieceID);
     void rewindLastMove();
     void rewindAllMoves();
     void forwardOneMove();
     void forwardAllMoves();
+
     Colour getTurnColour() const;
 private:
 

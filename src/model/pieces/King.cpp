@@ -20,13 +20,13 @@ bool King::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot
     Colour colour = board.getSpot(end.getRow(), end.getColumn())->getPieceColour();
     int x = std::abs(start.getRow() - end.getRow());
     int y = std::abs(start.getColumn() - end.getColumn());
-    if (colour == getColour()) {
+    if (colour == getColour() ||  y > 1) {
         return canCastleTo(board, start, end);
     }
 
     if (x == 0 && y == 0) return false;
 
-    if (x > 1 || y > 1) return false;
+    if (x > 1) return false;
     return true;
 }
 

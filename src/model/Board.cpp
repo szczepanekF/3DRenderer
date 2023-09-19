@@ -7,6 +7,7 @@
 
 Board::Board() {
     initBoard();
+    enPassantCol = -1;
 }
 
 void Board::initBoard() {
@@ -123,6 +124,16 @@ bool Board::isSpotAttackedBy(int x, int y, Colour colour) const {
 
 std::string Board::getSpotTexturePath(int row, int col) const {
     return getSpot(row, col)->getSpotTexturePath();
+}
+
+void Board::setEnPassantCol(int col) {
+    if (col >= -1 && col <= 7) {
+        enPassantCol = col;
+    }
+}
+
+int Board::getEnPassantCol() const {
+    return enPassantCol;
 }
 
 
