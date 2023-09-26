@@ -1,15 +1,12 @@
 
-#include <iostream>
 #include "model/Board.h"
 #include "model/RegularMove.h"
 #include "model/pieces/Rook.h"
 #include "model/pieces/Pawn.h"
 
-RegularMove::RegularMove(const std::shared_ptr<BoardSpot> &fromSpot, const std::shared_ptr<BoardSpot> &toSpot) : fromSpot(fromSpot),
-                                                                                                                 toSpot(toSpot),
-                                                                                                                 wasMade(false),
-                                                                                                                 castlingMove(false)
-                                                                                                   {}
+RegularMove::RegularMove(const std::shared_ptr<BoardSpot> &fromSpot,
+                         const std::shared_ptr<BoardSpot> &toSpot) : fromSpot(fromSpot), toSpot(toSpot), wasMade(false),
+                                                                     castlingMove(false) {}
 
 bool RegularMove::isLegal(Board &board) {
     std::shared_ptr<Piece> fromPiece = fromSpot->getPiece();
@@ -120,7 +117,7 @@ void RegularMove::performCastling(const Board &board) {
     newPosition->replacePiece(king);
 
     int rookCol = (diffY > 0) ? 7 : 0;
-    std::shared_ptr<BoardSpot> rookSpot = board.getSpot(fromSpot->getRow(),rookCol);
+    std::shared_ptr<BoardSpot> rookSpot = board.getSpot(fromSpot->getRow(), rookCol);
     std::shared_ptr<Rook> rook = std::dynamic_pointer_cast<Rook>(rookSpot->replacePiece(nullptr));
     rook->move();
 
@@ -141,13 +138,13 @@ void RegularMove::unperformCastling(const Board &board) {
     fromSpot->replacePiece(king);
 
     std::shared_ptr<BoardSpot> rookSpot = board.getSpot(fromSpot->getRow(),
-                                                               fromSpot->getColumn() + posDir * 1);
+                                                        fromSpot->getColumn() + posDir * 1);
 
     std::shared_ptr<Rook> rook = std::dynamic_pointer_cast<Rook>(rookSpot->replacePiece(nullptr));
     rook->undoMove();
 
     int rookCol = (diffY > 0) ? 7 : 0;
-    rookSpot = board.getSpot(fromSpot->getRow(),rookCol);
+    rookSpot = board.getSpot(fromSpot->getRow(), rookCol);
     rookSpot->replacePiece(rook);
 }
 
@@ -171,17 +168,12 @@ bool RegularMove::revertIfWasMade(Board &board) {
     return false;
 }
 
-//bool RegularMove::isTransformation() {
-//    return false;
-//}
-//
-
 bool RegularMove::isEnPassant(const Board &board) {
     std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(fromSpot->getPiece());
     if (pawn != nullptr) {
         if (board.getEnPassantCol() == toSpot->getColumn() && abs(toSpot->getColumn() - fromSpot->getColumn()) == 1) {
             if ((pawn->getColour() == WHITE && fromSpot->getRow() == 4 && toSpot->getRow() == 5) ||
-                    (pawn->getColour() == BLACK && fromSpot->getRow() == 3 && toSpot->getRow() == 2)) {
+                (pawn->getColour() == BLACK && fromSpot->getRow() == 3 && toSpot->getRow() == 2)) {
                 return true;
             }
 

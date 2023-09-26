@@ -4,14 +4,14 @@
 #include "model/Game.h"
 
 
-
 class BoardActionsHandler {
 public:
     BoardActionsHandler(const int textureSize);
 
 
-    void onPressAction(sf::RenderWindow &window);
-    void onReleaseAction(sf::RenderWindow &window);
+    void onMousePressAction(sf::RenderWindow &window);
+    void onMouseReleaseAction(sf::RenderWindow &window);
+    void onKeyboardPressAction(sf::Event &event);
     void updateBoard(sf::RenderWindow &window);
 
 private:
@@ -32,14 +32,11 @@ private:
 
     void updateMousePos(sf::RenderWindow &window);
     void drawPromotionChoice(sf::RenderWindow &window);
-
     void loadTextures();
+
     bool checkForPromotion(int srcX, int srcY);
     void handlePromotionChoice(int mouseX, int mouseY);
     void setupPromotionSprite();
-
-
-
 
 
 };

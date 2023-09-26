@@ -7,14 +7,21 @@
 
 Board::Board() {
     initBoard();
-    enPassantCol = -1;
+
 }
 
 void Board::initBoard() {
-
+    clearBoard();
     initializeOccupiedSpots();
     initializeEmptySpots();
+    enPassantCol = -1;
+}
 
+void Board::clearBoard() {
+    for (int i = 0; i < BOARD_LENGTH; i++) {
+        for (int j = 0; j < BOARD_LENGTH; j++)
+            board[i][j] = PositionFactory::createBlankPosition(i, j);
+    }
 }
 
 void Board::initializeOccupiedSpots() {
@@ -46,8 +53,6 @@ void Board::initializeOneSideSpots(Colour side) {
     for (int i = 0; i < BOARD_LENGTH; i++) {
         board[x][i] = PositionFactory::createPawnPosition(x, i);
     }
-
-
 }
 
 void Board::initializeEmptySpots() {
@@ -58,14 +63,6 @@ void Board::initializeEmptySpots() {
             board[i][j] = PositionFactory::createBlankPosition(i, j);
     }
 }
-
-void Board::clearBoard() {
-    for (int i = 0; i < BOARD_LENGTH; i++) {
-        for (int j = 0; j < BOARD_LENGTH; j++)
-            board[i][j] = PositionFactory::createBlankPosition(i, j);
-    }
-}
-
 
 std::shared_ptr<BoardSpot> Board::getSpot(int row, int col) const {
     if (row > 7 || col > 7 || row < 0 || col < 0) return nullptr;

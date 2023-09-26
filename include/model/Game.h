@@ -7,7 +7,7 @@
 class Game {
 public:
     virtual ~Game();
-    explicit Game(const Board &gameBoard);
+    explicit Game(Board &gameBoard);
 
 
     bool playerMove(int srcX, int srcY, int dstX, int dstY);
@@ -21,13 +21,13 @@ public:
     Colour getTurnColour() const;
 private:
 
-    Board gameBoard;
+    Board* gameBoard;
     std::deque<std::unique_ptr<Move>> moves;
     Colour turnColour;
 
     unsigned long long visibleMove;
 
-
+    void changeTurnColour();
 
 
 };

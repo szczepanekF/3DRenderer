@@ -1,9 +1,14 @@
 #include "model/PromotionMove.h"
 #include "model/pieces/Pawn.h"
+#include "model/pieces/King.h"
 
 bool PromotionMove::makeIfIsLegal([[maybe_unused]] Board &board) {
     if (std::dynamic_pointer_cast<Pawn>(transformationSpot->getPiece()) == nullptr) return false;
+    if (std::dynamic_pointer_cast<Pawn>(newPiece) != nullptr) return false;
+    if (std::dynamic_pointer_cast<King>(newPiece) != nullptr) return false;
     if (transformationSpot->getPieceColour() != newPiece->getColour()) return false;
+    if (transformationSpot->getPieceColour() == BLACK && transformationSpot->getRow() != 0) return false;
+    if (transformationSpot->getPieceColour() == WHITE && transformationSpot->getRow() != 7) return false;
     swapPieces();
     wasMade = true;
     return true;

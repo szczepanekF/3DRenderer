@@ -8,6 +8,7 @@ add_test(ChessTest
         BoardSpotTest.cpp
         BoardTest.cpp
         MoveTest.cpp
+        PromotionTest.cpp
         piecesTests/KingTest.cpp
         piecesTests/KnightTest.cpp
         piecesTests/QueenTest.cpp

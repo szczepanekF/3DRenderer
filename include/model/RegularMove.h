@@ -31,7 +31,6 @@ private:
 
     bool isCastling(const Board &board);
     bool arePiecesSameColour() const;
-    bool isTransformation();
     bool isLongPawnMove();
     bool isEnPassant(const Board &board);
 

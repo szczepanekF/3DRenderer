@@ -296,3 +296,31 @@ TEST_F(MoveTest, UpdateEnPassantTest) {
     EXPECT_EQ(board.getEnPassantCol(), -1);
 }
 
+
+TEST_F(MoveTest, EnPassantTest) {
+    //given
+
+    std::shared_ptr<Pawn> testPawn1 = std::make_shared<Pawn>(WHITE);
+    std::shared_ptr<Pawn> testPawn2 = std::make_shared<Pawn>(BLACK);
+    fromSpotTest = board.getSpot(4, 0);
+    toSpotTest = board.getSpot(5, 1);
+
+    //when
+    fromSpotTest->replacePiece(testPawn1);
+    move = std::make_shared<RegularMove>(fromSpotTest, toSpotTest);
+
+    //then
+    EXPECT_FALSE(move->makeIfIsLegal(board));
+
+    board.setEnPassantCol(1);
+
+    EXPECT_FALSE(move->makeIfIsLegal(board));
+
+    board.getSpot(4,1)->replacePiece(testPawn2);
+
+    EXPECT_TRUE(move->makeIfIsLegal(board));
+
+    board.setEnPassantCol(-1);
+
+    EXPECT_FALSE(move->makeIfIsLegal(board));
+}
