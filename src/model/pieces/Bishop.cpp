@@ -1,4 +1,3 @@
-
 #include "model/pieces/Bishop.h"
 #include "model/Board.h"
 
@@ -7,48 +6,49 @@ Bishop::Bishop(Colour initColour) : Piece(initColour) {
 
 }
 
-Bishop::~Bishop() {
-
+Bishop::~Bishop() = default;
+bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    return isPieceAllowedToMove(start, end) && !isMoveBlocked(board, start, end);
 }
 
-bool Bishop::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
-    if (end.getPieceColour() == getColour()) return false;
+bool Bishop::isPieceAllowedToMove(const BoardSpot &start, const BoardSpot &end) {
+    int x = std::abs(end.getRow() - start.getRow());
+    int y = std::abs(end.getColumn() - start.getColumn());
 
+    return (x != 0 && y != 0) && x == y;
+}
 
-    int startingRow = start.getRow();
-    int startingCol = start.getColumn();
-    int diffX = end.getRow() - startingRow;
-    int diffY = end.getColumn() - startingCol;
-    int x = std::abs(diffX);
-    int y = std::abs(diffY);
+bool Bishop::isMoveBlocked(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    return isSpotOccupiedByAlly(end) || exsistsPieceBetweenStartAndEnd(board, start, end);
+}
 
-    if (x == 0 && y == 0) return false;
+bool Bishop::isSpotOccupiedByAlly(const BoardSpot &spot) const {
+    return spot.getPieceColour() == getColour();
+}
 
-    if (x != y) return false;
+bool Bishop::exsistsPieceBetweenStartAndEnd(const Board &board, const BoardSpot &start, const BoardSpot &end) {
+    int rowDiff = end.getRow() - start.getRow();
+    int colDiff = end.getColumn() - start.getColumn();
 
+    int moveLength = std::abs(rowDiff);
+    int currentRow = start.getRow();
+    int currentCol = start.getColumn();
+    int incrementX = (rowDiff >= 0) ? 1 : -1;
+    int incrementY = (colDiff >= 0) ? 1 : -1;
 
-    bool forwardX = true;
-    bool forwardY = true;
-    if (diffX < 0) forwardX = false;
-    if (diffY < 0) forwardY = false;
+    for (int i = 0; i < moveLength - 1; i++) {
+        currentRow += incrementX;
+        currentCol += incrementY;
+        std::shared_ptr<BoardSpot> checkedSpot = board.getSpot(currentRow, currentCol);
 
-    std::shared_ptr<BoardSpot> checkedSpot;
-    for (int i = 1; i < x; i++) {
-        if (forwardX) startingRow += 1;
-        else startingRow -= 1;
-        if (forwardY) startingCol += 1;
-        else startingCol -= 1;
-        checkedSpot = board.getSpot(startingRow, startingCol);
-        if (checkedSpot->isOccupied()) return false;
+        if (checkedSpot->isOccupied()) {
+            return true;
+        }
     }
-
-
-    return true;
+    return false;
 }
 
 std::string Bishop::getTexturePath() const {
-    return Piece::getTexturePath()+"bishop.png";
+    return Piece::getTexturePath() + "bishop.png";
 }
-
-
 

@@ -17,10 +17,12 @@ public:
     bool canCastleTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const;
 
 private:
-
+    static bool isPieceAllowedToMove(const BoardSpot &start, const BoardSpot &end) ;
+    bool isSpotOccupiedByAlly(const BoardSpot &spot) const;
 
     bool isCastlingPossible(const int offsetX, const int offsetY) const;
-    bool isRookValidForCastling(const BoardSpot &rookSpot) const;
+    static bool isRookValidForCastling(const BoardSpot &rookSpot) ;
+    bool isCastlingBlocked(const Board &board, const BoardSpot &start, const BoardSpot &end) const;
 
 };
 

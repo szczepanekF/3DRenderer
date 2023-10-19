@@ -30,17 +30,13 @@ protected:
 
 
 TEST_F(RookTest, MoveToBalnkSpotTest) {
-
+    //given
+    spot = board.getSpot(4, 4);
+    testSpot = board.getSpot(0, 0);
 
     //when
-
-
-
-
-    spot = board.getSpot(4, 4);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(0, 0);
 
     //then
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
@@ -69,18 +65,15 @@ TEST_F(RookTest, MoveToBalnkSpotTest) {
 
 
 TEST_F(RookTest, MoveThroughOccupiedSpotTest) {
-
+    //given
     std::shared_ptr<Rook> p2 = std::make_shared<Rook>(WHITE);
 
-    //when
-
-
-
     spot = board.getSpot(4, 4);
-    spot->replacePiece(p);
-
     testSpot = board.getSpot(0, 4);
     std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(2, 4);
+
+    //when
+    spot->replacePiece(p);
 
     //then
 

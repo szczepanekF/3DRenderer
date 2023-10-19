@@ -28,20 +28,13 @@ protected:
 
 TEST_F(QueenTest, MovingTest) {
     //given
-
-
-    //when
-
-
-
-
     spot = board.getSpot(4, 4);
-    spot->replacePiece(p);
-
     testSpot = board.getSpot(2, 3);
 
-    //then
+    //when
+    spot->replacePiece(p);
 
+    //then
     EXPECT_FALSE(p->canMoveTo(board, *spot, *testSpot));
 
     testSpot = board.getSpot(6, 5);
@@ -73,19 +66,14 @@ TEST_F(QueenTest, MovingTest) {
 
 TEST_F(QueenTest, MovingThroughOccupiedSpotsTest) {
     //given
-
     std::shared_ptr<Queen> p2 = std::make_shared<Queen>(WHITE);
-    //when
-
-
     spot = board.getSpot(4, 4);
+    testSpot = board.getSpot(0, 0);
+    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(3, 3);
+    //when
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(0, 0);
-
-    std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(3, 3);
-
-//    then
+    //then
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
     testSpot2->replacePiece(p2);

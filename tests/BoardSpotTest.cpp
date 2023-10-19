@@ -21,12 +21,9 @@ protected:
 
 
 TEST_F(BoardSpotTest, ConstructionTest) {
-    //given
 
-
+    //given && when
     BoardSpot occupiedSpot(3, 1, std::make_shared<Pawn>());
-
-    //when
 
     //then
     EXPECT_EQ(testSpot.getRow(), 0);
@@ -40,14 +37,9 @@ TEST_F(BoardSpotTest, ConstructionTest) {
 }
 
 TEST_F(BoardSpotTest, GetPieceColour) {
-    //given
-
-    //when
-
+    //given && when
     BoardSpot whitePieceSpot(0, 0, std::make_shared<Pawn>(WHITE));
     BoardSpot blackPieceSpot(0, 0, std::make_shared<Pawn>(BLACK));
-
-
 
     //then
     EXPECT_EQ(testSpot.getPieceColour(), NO_COLOUR);
@@ -59,8 +51,7 @@ TEST_F(BoardSpotTest, GetPieceColour) {
 }
 
 TEST_F(BoardSpotTest, GetPieceTest) {
-    //given
-    //when
+    //given && when
     std::shared_ptr<Pawn> testPawn = std::make_shared<Pawn>();
     BoardSpot occupiedSpot(0, 0, testPawn);
     //then
@@ -70,9 +61,7 @@ TEST_F(BoardSpotTest, GetPieceTest) {
 }
 
 TEST_F(BoardSpotTest, ReplacePieceTest) {
-    //given
-
-    //when
+    //given && when
     std::shared_ptr<Piece> piece = std::make_unique<King>();
     EXPECT_EQ(testSpot.replacePiece(piece), nullptr);
 

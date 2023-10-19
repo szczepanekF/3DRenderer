@@ -18,8 +18,9 @@ TEST(PromotionTest, MakeAndRevertPiecesTest) {
     std::shared_ptr<Piece> testBishop = std::make_shared<Bishop>(BLACK);
     std::shared_ptr<Piece> testKing= std::make_shared<King>(BLACK);
     Board board;
-    board.clearBoard();
     //when
+    board.clearBoard();
+
     std::shared_ptr<BoardSpot> promotionSpot = board.getSpot(0, 0);
     promotionSpot->replacePiece(testPawn1);
     PromotionMove move(promotionSpot, testPawn2);
@@ -62,8 +63,9 @@ TEST(PromotionTest, MakeAndRevertSpotsTest) {
     std::shared_ptr<Piece> WhiteRook = std::make_shared<Rook>(WHITE);
     std::shared_ptr<Piece> BlackRook = std::make_shared<Rook>(BLACK);
     Board board;
-    board.clearBoard();
+
     //when
+    board.clearBoard();
     std::shared_ptr<BoardSpot> promotionSpot = board.getSpot(0, 0);
     promotionSpot->replacePiece(WhitePawn);
     PromotionMove move(promotionSpot, WhiteRook);

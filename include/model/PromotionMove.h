@@ -10,10 +10,12 @@ public:
 
     bool makeIfIsLegal(Board &board) override;
     bool revertIfWasMade(Board &board) override;
+
 private:
     std::shared_ptr<BoardSpot> transformationSpot;
     std::shared_ptr<Piece> newPiece;
     bool wasMade;
+
     void swapPieces();
 
 };

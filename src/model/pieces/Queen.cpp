@@ -6,39 +6,52 @@ Queen::Queen(Colour initColour) : Piece(initColour) {
 }
 
 
-Queen::~Queen() {
-
-}
+Queen::~Queen() = default;
 
 bool Queen::canMoveTo(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
-    if (board.getSpot(end.getRow(), end.getColumn())->getPieceColour() == getColour()) return false;
-    int startingRow = start.getRow();
-    int startingCol = start.getColumn();
-    int diffX = end.getRow() - startingRow;
-    int diffY = end.getColumn() - startingCol;
-    int x = std::abs(diffX);
-    int y = std::abs(diffY);
+    return isPieceAllowedToMove(start, end) && !isMoveBlocked(board, start, end);
+}
 
-    if ((y != 0 && x != 0) && x != y) return false;
-    int steps = x;
-    if (steps == 0) {
-        steps = y;
+bool Queen::isPieceAllowedToMove(const BoardSpot &start, const BoardSpot &end) {
+    int absoluteRowDiff = std::abs(end.getRow() - start.getRow());
+    int absoluteColDiff = std::abs(end.getColumn() - start.getColumn());
+
+    bool eitherOneEqualZero = (absoluteRowDiff == 0 || absoluteColDiff == 0);
+    bool equalToEachother = absoluteRowDiff == absoluteColDiff;
+    bool bothNotZero = !(absoluteRowDiff == 0 && absoluteColDiff == 0);
+    return (eitherOneEqualZero && bothNotZero) || equalToEachother;
+}
+
+bool Queen::isMoveBlocked(const Board &board, const BoardSpot &start, const BoardSpot &end) const {
+    return isSpotOccupiedByAlly(end) || exsistsPieceBetweenStartAndEnd(board, start, end);
+}
+
+bool Queen::isSpotOccupiedByAlly(const BoardSpot &spot) const {
+    return spot.getPieceColour() == getColour();
+}
+
+bool Queen::exsistsPieceBetweenStartAndEnd(const Board &board, const BoardSpot &start, const BoardSpot &end) {
+    int rowDiff = end.getRow() - start.getRow();
+    int colDiff = end.getColumn() - start.getColumn();
+    int steps = rowDiff ? abs(rowDiff) : abs(colDiff);
+    int currentRow = start.getRow();
+    int currentCol = start.getColumn();
+    for (int i = 0; i < steps - 1; i++) {
+        if (rowDiff != 0) {
+            currentRow += (rowDiff > 0) ? 1 : -1;
+        }
+        if (colDiff != 0) {
+            currentCol += (colDiff > 0) ? 1 : -1;
+        }
+        std::shared_ptr<BoardSpot> checkedSpot = board.getSpot(currentRow, currentCol);
+        if (checkedSpot->isOccupied()) {
+            return true;
+        }
     }
-    std::shared_ptr<BoardSpot> checkedSpot;
-    for (int i = 1; i < steps; i++) {
-        if (diffX > 0) startingRow += 1;
-        else if (diffX != 0) startingRow -= 1;
-
-
-        if (diffY > 0) startingCol += 1;
-        else if (diffY != 0) startingCol -= 1;
-
-        checkedSpot = board.getSpot(startingRow, startingCol);
-        if (checkedSpot->isOccupied()) return false;
-    }
-    return true;
+    return false;
 }
 
 std::string Queen::getTexturePath() const {
-    return Piece::getTexturePath()+"queen.png";
+    return Piece::getTexturePath() + "queen.png";
 }
+

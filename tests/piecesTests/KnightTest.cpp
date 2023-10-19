@@ -30,17 +30,12 @@ protected:
 
 TEST_F(KnightTest, MoveToBlankSpotTest) {
     //given
-
+    spot = board.getSpot(3, 4);
+    testSpot = board.getSpot(3, 3);
 
     //when
-
-
-
-
-    spot = board.getSpot(3, 4);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(3, 3);
 
     //then
 
@@ -73,16 +68,12 @@ TEST_F(KnightTest, MoveToBlankSpotTest) {
 
 TEST_F(KnightTest, MoveToOccupiedSpotTest) {
     //given
-
     std::shared_ptr<Knight> p2 = std::make_shared<Knight>(WHITE);
 
-    //when
-
-
     spot = board.getSpot(3, 4);
-    spot->replacePiece(p);
-
     testSpot = board.getSpot(1, 3);
+    //when
+    spot->replacePiece(p);
 
     //then
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));

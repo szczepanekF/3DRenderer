@@ -2,7 +2,7 @@
 #include "model/pieces/Pawn.h"
 #include "model/pieces/King.h"
 
-bool PromotionMove::makeIfIsLegal([[maybe_unused]] Board &board) {
+bool PromotionMove::makeIfIsLegal(Board &) {
     if (std::dynamic_pointer_cast<Pawn>(transformationSpot->getPiece()) == nullptr) return false;
     if (std::dynamic_pointer_cast<Pawn>(newPiece) != nullptr) return false;
     if (std::dynamic_pointer_cast<King>(newPiece) != nullptr) return false;
@@ -14,7 +14,7 @@ bool PromotionMove::makeIfIsLegal([[maybe_unused]] Board &board) {
     return true;
 }
 
-bool PromotionMove::revertIfWasMade([[maybe_unused]] Board &board) {
+bool PromotionMove::revertIfWasMade(Board &) {
     if (!wasMade) return false;
     swapPieces();
     wasMade = false;

@@ -33,9 +33,7 @@ protected:
 
 TEST_F(PawnTest, ConstructionTest) {
     //given
-
     //when
-
     //then
     EXPECT_EQ(p->getColour(), WHITE);
     EXPECT_EQ(p2->getColour(), BLACK);
@@ -43,12 +41,12 @@ TEST_F(PawnTest, ConstructionTest) {
 
 TEST_F(PawnTest, MovingToBlankSpotTest) {
     //given
+    spot = board.getSpot(3, 4);
+    testSpot = board.getSpot(3, 3);
 
     //when
-    spot = board.getSpot(3, 4);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(3, 3);
     //then
     EXPECT_TRUE(spot->isOccupied());
 
@@ -95,17 +93,14 @@ TEST_F(PawnTest, MovingToBlankSpotTest) {
 
 TEST_F(PawnTest, MovingToOccupiedSpotTest) {
     //given
-
-    //when
-
-    spot = board.getSpot(3, 4);
-    spot->replacePiece(p);
-
-    testSpot = board.getSpot(4, 4);
-    testSpot->replacePiece(p2);
-
     std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(5, 4);
 
+    spot = board.getSpot(3, 4);
+    testSpot = board.getSpot(4, 4);
+
+    //when
+    spot->replacePiece(p);
+    testSpot->replacePiece(p2);
 
     //then
     EXPECT_TRUE(testSpot->isOccupied());
@@ -150,12 +145,12 @@ TEST_F(PawnTest, MovingToOccupiedSpotTest) {
 
 TEST_F(PawnTest, WhiteTakingTest) {
     //given
+    spot = board.getSpot(3, 3);
+    testSpot = board.getSpot(4, 4);
 
     //when
-    spot = board.getSpot(3, 3);
     spot->replacePiece(p);
 
-    testSpot = board.getSpot(4, 4);
     //then
 
     EXPECT_TRUE(p->canTake(board, *spot, *testSpot));
@@ -173,12 +168,12 @@ TEST_F(PawnTest, WhiteTakingTest) {
 
 TEST_F(PawnTest, BlackTakingTest) {
     //given
+    spot = board.getSpot(3, 3);
+    testSpot = board.getSpot(4, 4);
 
     //when
-    spot = board.getSpot(3, 3);
     spot->replacePiece(p2);
 
-    testSpot = board.getSpot(4, 4);
 
     //then
 

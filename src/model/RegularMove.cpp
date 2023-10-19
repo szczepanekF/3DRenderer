@@ -110,13 +110,13 @@ void RegularMove::performCastling(const Board &board) {
     std::shared_ptr<King> king = std::dynamic_pointer_cast<King>(movingPiece);
     king->move();
 
-    int diffY = toSpot->getColumn() - fromSpot->getColumn();
-    int posDir = (diffY > 0) ? 1 : -1;
+    int colDiff = toSpot->getColumn() - fromSpot->getColumn();
+    int posDir = (colDiff > 0) ? 1 : -1;
     std::shared_ptr<BoardSpot> newPosition = board.getSpot(fromSpot->getRow(),
                                                            fromSpot->getColumn() + posDir * 2);
     newPosition->replacePiece(king);
 
-    int rookCol = (diffY > 0) ? 7 : 0;
+    int rookCol = (colDiff > 0) ? 7 : 0;
     std::shared_ptr<BoardSpot> rookSpot = board.getSpot(fromSpot->getRow(), rookCol);
     std::shared_ptr<Rook> rook = std::dynamic_pointer_cast<Rook>(rookSpot->replacePiece(nullptr));
     rook->move();
@@ -126,8 +126,8 @@ void RegularMove::performCastling(const Board &board) {
 }
 
 void RegularMove::unperformCastling(const Board &board) {
-    int diffY = toSpot->getColumn() - fromSpot->getColumn();
-    int posDir = (diffY > 0) ? 1 : -1;
+    int colDiff = toSpot->getColumn() - fromSpot->getColumn();
+    int posDir = (colDiff > 0) ? 1 : -1;
 
     std::shared_ptr<BoardSpot> kingCurrentSpot = board.getSpot(fromSpot->getRow(),
                                                                fromSpot->getColumn() + posDir * 2);
@@ -143,7 +143,7 @@ void RegularMove::unperformCastling(const Board &board) {
     std::shared_ptr<Rook> rook = std::dynamic_pointer_cast<Rook>(rookSpot->replacePiece(nullptr));
     rook->undoMove();
 
-    int rookCol = (diffY > 0) ? 7 : 0;
+    int rookCol = (colDiff > 0) ? 7 : 0;
     rookSpot = board.getSpot(fromSpot->getRow(), rookCol);
     rookSpot->replacePiece(rook);
 }

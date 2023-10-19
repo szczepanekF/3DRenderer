@@ -31,13 +31,11 @@ protected:
 
 TEST_F(BishopTest, MovingTest) {
     //given
+    spot = board.getSpot(4, 4);
+    testSpot = board.getSpot(4, 3);
 
     //when
-
-    spot = board.getSpot(4, 4);
     spot->replacePiece(p);
-
-    testSpot = board.getSpot(4, 3);
 
     //then
 
@@ -57,15 +55,14 @@ TEST_F(BishopTest, MovingTest) {
 
 TEST_F(BishopTest, MovingTroughOccupiedSpotsTest) {
     //given
-    //when
-
     spot = board.getSpot(4, 4);
-    spot->replacePiece(p);
-
     std::shared_ptr<BoardSpot> testSpot = board.getSpot(7, 7);
     std::shared_ptr<BoardSpot> testSpot2 = board.getSpot(6, 6);
-    //then
 
+    //when
+    spot->replacePiece(p);
+
+    //then
 
     EXPECT_TRUE(p->canMoveTo(board, *spot, *testSpot));
 
