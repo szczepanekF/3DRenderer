@@ -16,6 +16,4 @@ MoveSensitivePiece::MoveSensitivePiece(Colour initColour) : Piece(initColour) {
     hasMoved = false;
 }
 
-MoveSensitivePiece::~MoveSensitivePiece() {
-
-}
+MoveSensitivePiece::~MoveSensitivePiece() = default;

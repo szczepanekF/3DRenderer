@@ -5,7 +5,7 @@
 #include <vector>
 
 
-Board::Board() {
+Board::Board(): enPassantCol(-1) {
     initBoard();
 
 }
@@ -19,8 +19,9 @@ void Board::initBoard() {
 
 void Board::clearBoard() {
     for (int i = 0; i < BOARD_LENGTH; i++) {
-        for (int j = 0; j < BOARD_LENGTH; j++)
+        for (int j = 0; j < BOARD_LENGTH; j++) {
             board[i][j] = PositionFactory::createBlankPosition(i, j);
+        }
     }
 }
 
@@ -29,15 +30,14 @@ void Board::initializeOccupiedSpots() {
     initializeOneSideSpots(BLACK);
 }
 
-void Board::initializeOneSideSpots(Colour side) {
-    int x;
-    if (side == BLACK) {
-        x = BOARD_LENGTH - 1;
-        PositionFactory::setBlackSide();
-    } else {
-        x = 0;
-        PositionFactory::setWhiteSide();
-    }
+void Board::initializeOneSideSpots(Colour sideColour) {
+    createFirstRow(sideColour);
+    createPawnRow(sideColour);
+}
+
+void Board::createFirstRow(Colour sideColour) {
+    int x = (sideColour == BLACK) ? BOARD_LENGTH - 1 : 0;
+    setPositionFactoryColour(sideColour);
     board[x][0] = PositionFactory::createRookPosition(x, 0);
     board[x][1] = PositionFactory::createKnightPosition(x, 1);
     board[x][2] = PositionFactory::createBishopPosition(x, 2);
@@ -46,14 +46,24 @@ void Board::initializeOneSideSpots(Colour side) {
     board[x][5] = PositionFactory::createBishopPosition(x, 5);
     board[x][6] = PositionFactory::createKnightPosition(x, 6);
     board[x][7] = PositionFactory::createRookPosition(x, 7);
+}
 
-    if (x == 0) x++;
-    else x--;
-
+void Board::createPawnRow(Colour sideColour) {
+    int x = (sideColour == BLACK) ? BOARD_LENGTH - 2 : 1;
+    setPositionFactoryColour(sideColour);
     for (int i = 0; i < BOARD_LENGTH; i++) {
         board[x][i] = PositionFactory::createPawnPosition(x, i);
     }
 }
+
+void Board::setPositionFactoryColour(Colour colour) const {
+    if (colour == BLACK) {
+        PositionFactory::setBlackSide();
+    } else {
+        PositionFactory::setWhiteSide();
+    }
+}
+
 
 void Board::initializeEmptySpots() {
     int occupiedRows = 2;
@@ -79,11 +89,11 @@ std::vector<std::shared_ptr<BoardSpot>> Board::getPiecesOfColour(Colour colour) 
 }
 
 void Board::fillWithSameColour(std::vector<std::shared_ptr<BoardSpot>> &vec, Colour colour) const {
-    for (const auto &i: board) {
-        for (const auto &j: i) {
-            Colour spotColour = j->getPieceColour();
+    for (const auto &row: board) {
+        for (const auto &piece: row) {
+            Colour spotColour = piece->getPieceColour();
             if (spotColour == colour) {
-                vec.emplace_back(j);
+                vec.emplace_back(piece);
             }
         }
     }
@@ -99,8 +109,7 @@ std::shared_ptr<BoardSpot> Board::getKingSpotOfColour(Colour colour) const {
         }
     }
 
-    throw std::logic_error("King of given colour is not on a board - Weird!");
-
+    throw std::logic_error("King of given colour is not on a board!");
 }
 
 
@@ -108,13 +117,11 @@ bool Board::isSpotAttackedBy(int x, int y, Colour colour) const {
     std::vector<std::shared_ptr<BoardSpot>> spots = getPiecesOfColour(colour);
     std::shared_ptr<BoardSpot> spotToCheck = board[x][y];
     std::shared_ptr<Piece> currPiece;
-    for (auto spot: spots) {
+    for (const auto& spot: spots) {
         currPiece = spot->getPiece();
-
         if (currPiece->canTake(*this, *spot, *spotToCheck)) {
             return true;
         }
-
     }
     return false;
 }
@@ -132,6 +139,11 @@ void Board::setEnPassantCol(int col) {
 int Board::getEnPassantCol() const {
     return enPassantCol;
 }
+
+
+
+
+
 
 
 

@@ -29,10 +29,12 @@ public:
 private:
     void initializeOccupiedSpots();
     void initializeEmptySpots();
-    void initializeOneSideSpots(Colour side);
+    void initializeOneSideSpots(Colour sideColour);
     void fillWithSameColour(std::vector<std::shared_ptr<BoardSpot>> &vec, Colour colour) const;
 
-
+    void createFirstRow(Colour sideColour);
+    void createPawnRow(Colour sideColour);
+    void setPositionFactoryColour(Colour colour) const;
     std::shared_ptr<BoardSpot> board[BOARD_LENGTH][BOARD_LENGTH];
     int enPassantCol;
 };

@@ -1,6 +1,8 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include "BoardActionsHandler.h"
+
 class MainGameView {
 public:
     void run();
@@ -8,7 +10,9 @@ public:
 private:
     const int textureSize = 100;
     sf::RenderWindow window = sf::RenderWindow(
-            sf::VideoMode(8 * (unsigned)textureSize, 8 * (unsigned)textureSize), "Chess");
+            sf::VideoMode(8 *
+            (unsigned) textureSize, 8 * (unsigned) textureSize),
+            "Chess by Filip Szczepanek");
     BoardActionsHandler handler = BoardActionsHandler(textureSize);
 
 

@@ -21,6 +21,7 @@ public:
     Colour getColour() const;
     Colour getOppositeColour() const;
     virtual std::string getTexturePath() const;
+
 private:
     Colour colour = WHITE;
 };

@@ -112,5 +112,4 @@ void Game::changeTurnColour() {
     turnColour = (turnColour == WHITE) ? BLACK : WHITE;
 }
 
-Game::~Game() {
-}
+Game::~Game() = default;

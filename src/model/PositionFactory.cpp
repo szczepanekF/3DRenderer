@@ -9,9 +9,7 @@
 
 Colour PositionFactory::sideColour;
 
-PositionFactory::PositionFactory() {
-
-}
+PositionFactory::PositionFactory() = default;
 
 std::shared_ptr<BoardSpot> PositionFactory::createBlankPosition(int row, int col) {
     return std::make_shared<BoardSpot>(row, col, nullptr);

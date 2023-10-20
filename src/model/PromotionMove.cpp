@@ -22,7 +22,7 @@ bool PromotionMove::revertIfWasMade(Board &) {
 }
 
 PromotionMove::PromotionMove(std::shared_ptr<BoardSpot> &transformationSpot, std::shared_ptr<Piece> &piece)
-        : transformationSpot(transformationSpot), newPiece(piece) {
+        : transformationSpot(transformationSpot), newPiece(piece), wasMade(false) {
 
 
 }

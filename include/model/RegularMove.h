@@ -9,7 +9,7 @@ class RegularMove : public Move {
 
 
 public:
-    RegularMove(const std::shared_ptr<BoardSpot> &fromSpot, const std::shared_ptr<BoardSpot> &toSpot);
+    RegularMove(std::shared_ptr<BoardSpot> fromSpot, std::shared_ptr<BoardSpot> toSpot);
     bool isLegal(Board &board);
     bool makeIfIsLegal(Board &board) override;
     bool revertIfWasMade(Board &board) override;
@@ -26,15 +26,22 @@ private:
     void make(Board &board);
     void revert(const Board &board);
 
+    bool isLegalCastling(const Board &board);
+    bool arePiecesSameColour() const;
+    bool isPieceAvailableToMove(const Board &board);
+    bool isPawnAvailableToMakeEnPassant(const Board &board);
+    bool canPieceLegallyMove(const Board &board);
+    bool willKingBeAttacked(Board &board);
+
     void performCastling(const Board &board);
     void unperformCastling(const Board &board);
 
-    bool isCastling(const Board &board);
-    bool arePiecesSameColour() const;
     bool isLongPawnMove();
     bool isEnPassant(const Board &board);
 
     void prepareEnPassant(const Board &board);
+    void prepareEnPassantIfNecessary(const Board &board);
+    void unprepareEnPassantIfNecessary(const Board &board);
     void unprepareEnpassant(const Board &board);
     void updateBoardEnPassant(Board &board);
 

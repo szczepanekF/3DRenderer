@@ -11,6 +11,8 @@ public:
     ~Rook() override;
 
     bool canMoveTo(const Board& board, const BoardSpot &start, const BoardSpot &end) const override;
+
+private:
     static bool isPieceAllowedToMove(const BoardSpot &start, const BoardSpot &end) ;
     bool isMoveBlocked(const Board &board, const BoardSpot &start, const BoardSpot &end) const;
     bool isSpotOccupiedByAlly(const BoardSpot &spot) const;
