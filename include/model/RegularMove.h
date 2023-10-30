@@ -29,12 +29,15 @@ private:
     bool isLegalCastling(const Board &board);
     bool arePiecesSameColour() const;
     bool isPieceAvailableToMove(const Board &board);
-    bool isPawnAvailableToMakeEnPassant(const Board &board);
     bool canPieceLegallyMove(const Board &board);
     bool willKingBeAttacked(Board &board);
 
     void performCastling(const Board &board);
+    void moveKingToCastlingSpot(const Board &board);
+    void moveRookToCastlingSpot(const Board &board);
     void unperformCastling(const Board &board);
+    void revertCastlingKingMove(const Board &board);
+    void revertCastlingRookMove(const Board &board);
 
     bool isLongPawnMove();
     bool isEnPassant(const Board &board);
